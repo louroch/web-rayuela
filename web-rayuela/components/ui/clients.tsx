@@ -22,6 +22,7 @@ export function Clients() {
   const controls = useAnimation()
 
   useEffect(() => {
+    // Start animation immediately on mount
     controls.start({
       x: [0, -50 * clients.length],
       transition: {
@@ -33,6 +34,11 @@ export function Clients() {
         },
       },
     })
+
+    // Cleanup animation on unmount
+    return () => {
+      controls.stop()
+    }
   }, [controls, clients.length])
 
   return (
@@ -45,22 +51,29 @@ export function Clients() {
 
           <div className="w-full overflow-hidden mb-12">
             <motion.div 
-              className="flex"
+              className="flex items-center"
               animate={controls}
-              style={{ width: `${clients.length * 200}px` }} // Adjust based on logo size
+              style={{ 
+                width: `${clients.length * 150}px`, // Reduced width for better performance
+                gap: '2rem' // Add consistent spacing between logos
+              }}
             >
               {clients.map((client, index) => (
                 <div
                   key={`${client.name}-${index}`}
-                  className="flex items-center justify-center mx-8"
+                  className="flex-shrink-0 w-[120px]" // Fixed width container for consistent sizing
                 >
-                  <Image
-                    src={client.logo}
-                    alt={`${client.name} logo`}
-                    width={400}
-                    height={400}
-                    className="w-auto h-auto object-contain"
-                  />
+                  <div className="relative w-full aspect-square">
+                    <Image
+                      src={client.logo}
+                      alt={`${client.name} logo`}
+                      fill
+                      sizes="120px"
+                      className="object-contain"
+                      priority={index < 6} // Prioritize loading first 6 images
+                      loading={index < 6 ? "eager" : "lazy"} // Eager load first 6 images
+                    />
+                  </div>
                 </div>
               ))}
             </motion.div>

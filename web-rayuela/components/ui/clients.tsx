@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import Image from "next/image"
-import { motion, useAnimation, useInView } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 
 export function Clients() {
   const clients = [
@@ -19,27 +19,21 @@ export function Clients() {
     { name: "Yoe", logo: "/assets/yoe.png" },
   ]
 
-  const carouselRef = useRef(null)
-  const isInView = useInView(carouselRef, { once: false })
   const controls = useAnimation()
 
   useEffect(() => {
-    if (isInView) {
-      controls.start({
-        x: [0, -50 * clients.length],
-        transition: {
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 20,
-            ease: "linear",
-          },
+    controls.start({
+      x: [0, -50 * clients.length],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 20,
+          ease: "linear",
         },
-      })
-    } else {
-      controls.stop()
-    }
-  }, [isInView, controls, clients.length])
+      },
+    })
+  }, [controls, clients.length])
 
   return (
     <section className="py-16 bg-white">
@@ -49,7 +43,7 @@ export function Clients() {
             Clientes que eligen nuestra experiencia para alcanzar resultados.
           </h2>
 
-          <div className="w-full overflow-hidden mb-12" ref={carouselRef}>
+          <div className="w-full overflow-hidden mb-12">
             <motion.div 
               className="flex"
               animate={controls}
@@ -63,8 +57,8 @@ export function Clients() {
                   <Image
                     src={client.logo}
                     alt={`${client.name} logo`}
-                    width={600}
-                    height={600}
+                    width={400}
+                    height={400}
                     className="w-auto h-auto object-contain"
                   />
                 </div>

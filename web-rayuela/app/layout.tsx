@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Rayuela - Agencia de Marketing digital',
-  description: 'Servicios de marketing digital y diseño web',
+  title: 'Rayuela - Estrategias que Transforman',
+  description: 'Somos arquitectos de experiencias digitales que convierten ideas en resultados tangibles.',
   icons: {
     icon: [
       {

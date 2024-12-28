@@ -44,21 +44,10 @@ export function HeroSection() {
               En Rayuela, no solo ofrecemos servicios de marketing digital; trazamos el camino completo desde la base hasta el cielo de las posibilidades digitales. Más que una agencia, somos arquitectos de experiencias digitales que convierten ideas en resultados tangibles.
             </h2>
           </div>
-
-          {/* Botón (solo visible en pantallas grandes aquí) */}
-          <div className="hidden md:block mt-6">
-            <Button
-              variant="outline"
-              className="px-6 py-6 ml-5 text-base font-medium bg-[#9966FF] hover:bg-[#b9e4d0] text-white border-none"
-              onClick={handleRedirect}
-            >
-              ¿Dónde encontrarnos?
-            </Button>
-          </div>
         </div>
 
-        {/* Botón (solo visible en pantallas pequeñas aquí) */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 md:hidden">
+        {/* Botón */}
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 md:bottom-24">
           <Button
             variant="outline"
             className="px-6 py-3 text-base font-medium bg-[#9966FF] hover:bg-[#b9e4d0] text-white border-none"

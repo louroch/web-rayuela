@@ -1,45 +1,42 @@
 'use client'
-import { useEffect } from 'react'
+
+import { useEffect, useRef } from 'react'
 import Image from "next/image"
-import { motion, useAnimation } from 'framer-motion'
+
+const CLIENTS = [
+  { name: "Quino", logo: "/assets/QUINO.png" },
+  { name: "Inmobiliaria L&C", logo: "/assets/logoinmo.png" },
+  { name: "Guen Cuero", logo: "/assets/05.png" },
+  { name: "Felipe", logo: "/assets/felipe.png" },
+  { name: "Yaggi", logo: "/assets/yaggi.png" },
+  { name: "Yoe", logo: "/assets/yoe.png" },
+]
 
 export function Clients() {
-  const clients = [
-    { name: "Quino", logo: "/assets/QUINO.png" },
-    { name: "Inmobiliaria L&C", logo: "/assets/logoinmo.png" },
-    { name: "Guen Cuero", logo: "/assets/05.png" },
-    { name: "Felipe", logo: "/assets/felipe.png" },
-    { name: "Yaggi", logo: "/assets/yaggi.png" },
-    { name: "Yoe", logo: "/assets/yoe.png" },
-    // Duplicate clients to create a seamless loop
-    { name: "Quino", logo: "/assets/QUINO.png" },
-    { name: "Inmobiliaria L&C", logo: "/assets/logoinmo.png" },
-    { name: "Guen Cuero", logo: "/assets/05.png" },
-    { name: "Felipe", logo: "/assets/felipe.png" },
-    { name: "Yoe", logo: "/assets/yoe.png" },
-  ]
-
-  const controls = useAnimation()
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Start animation immediately on mount
-    controls.start({
-      x: [0, -50 * clients.length],
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 20,
-          ease: "linear",
-        },
-      },
-    })
+    const scrollContainer = scrollRef.current
+    if (!scrollContainer) return
 
-    // Cleanup animation on unmount
-    return () => {
-      controls.stop()
+    let animationFrameId: number
+    let position = 0
+
+    const scroll = () => {
+      position += 0.5
+      if (position >= scrollContainer.scrollWidth / 2) {
+        position = 0
+      }
+      scrollContainer.scrollLeft = position
+      animationFrameId = requestAnimationFrame(scroll)
     }
-  }, [controls, clients.length])
+
+    animationFrameId = requestAnimationFrame(scroll)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
 
   return (
     <section className="py-16 bg-white">
@@ -50,18 +47,19 @@ export function Clients() {
           </h2>
 
           <div className="w-full overflow-hidden mb-12">
-            <motion.div 
-              className="flex items-center"
-              animate={controls}
-              style={{ 
-                width: `${clients.length * 150}px`, // Reduced width for better performance
-                gap: '2rem' // Add consistent spacing between logos
+            <div 
+              ref={scrollRef}
+              className="flex gap-8 overflow-hidden"
+              style={{
+                maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
               }}
             >
-              {clients.map((client, index) => (
+              {/* Original clients */}
+              {CLIENTS.map((client, index) => (
                 <div
-                  key={`${client.name}-${index}`}
-                  className="flex-shrink-0 w-[120px]" // Fixed width container for consistent sizing
+                  key={client.name}
+                  className="flex-shrink-0 w-[120px]"
                 >
                   <div className="relative w-full aspect-square">
                     <Image
@@ -70,13 +68,30 @@ export function Clients() {
                       fill
                       sizes="120px"
                       className="object-contain"
-                      priority={index < 6} // Prioritize loading first 6 images
-                      loading={index < 6 ? "eager" : "lazy"} // Eager load first 6 images
+                      priority={index < 4}
                     />
                   </div>
                 </div>
               ))}
-            </motion.div>
+              {/* Duplicate for seamless loop */}
+              {CLIENTS.map((client) => (
+                <div
+                  key={`${client.name}-duplicate`}
+                  className="flex-shrink-0 w-[120px]"
+                >
+                  <div className="relative w-full aspect-square">
+                    <Image
+                      src={client.logo}
+                      alt={`${client.name} logo`}
+                      fill
+                      sizes="120px"
+                      className="object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

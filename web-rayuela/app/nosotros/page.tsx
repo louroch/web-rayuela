@@ -95,7 +95,7 @@ export default function NosotrosPage() {
             <Rocket className="h-12 w-12 text-[#9966FF]" />
           </div>
           <h2 className="text-4xl font-bold text-[#9966FF] mb-4 text-center">
-          En Rayuela, no simplemente ofrecemos servicios de marketing digital, brindamos el camino completo desde la base hasta el cielo de las posibilidades digitales. Somos más que una agencia; somos arquitectos de experiencias digitales que transforman ideas en resultados tangibles.
+          En Rayuela, no simplemente ofrecemos servicios de marketing digital, brindamos el camino completo desde la base hasta el cielo de las posibilidades digitales.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div className="flex flex-col items-center text-center">

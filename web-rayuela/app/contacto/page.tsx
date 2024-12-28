@@ -44,8 +44,8 @@ export default function ContactoPage() {
               </div>
               <div className="flex items-center justify-center text-gray-800">
                 <Mail size={24} className="mr-2 text-[#9966FF]" />
-                <a href="mailto:info@rayuela.com" className="hover:text-[#7433FE] transition-colors duration-300 transform hover:scale-105">
-                  info@rayuela.com
+                <a href="mailto:contacto@somosrayuela.com" className="hover:text-[#7433FE] transition-colors duration-300 transform hover:scale-105">
+                contacto@somosrayuela.com
                 </a>
               </div>
             </CardContent>

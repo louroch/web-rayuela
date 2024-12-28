@@ -45,25 +45,26 @@ export function HeroSection() {
       </div>
 
       {/* Contenido */}
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center md:items-start md:justify-start">
+      <div className="absolute inset-0 z-10 flex flex-col justify-start lg:justify-center items-center md:items-start">
         {/* Textos principales */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-32 space-y-8 md:space-y-12 text-center md:text-left">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-32 space-y-8 md:space-y-12 text-center md:text-left">
           <div className="max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto md:mx-0">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6">
               <span className="block text-[#9966FF]">ESTRATEGIAS QUE</span>
               <span className="block text-[#9966FF]">TRANSFORMAN</span>
             </h1>
-            <h2 
+            <h2
               className={`text-lg md:text-2xl text-white/90 max-w-xl rounded-lg transition-opacity duration-1000 ${
-                showText ? 'opacity-100' : 'opacity-0'
+                showText ? "opacity-100" : "opacity-0"
               }`}
             >
-              En Rayuela, no solo ofrecemos servicios de marketing digital; trazamos el camino completo desde la base hasta el cielo de las posibilidades digitales. Más que una agencia, somos arquitectos de experiencias digitales que convierten ideas en resultados tangibles.
+              Somos más que una agencia, somos arquitectos de experiencias
+              digitales que convierten ideas en resultados tangibles.
             </h2>
           </div>
 
-          {/* Botón (centrado en todas las pantallas) */}
-          <div className="mt-8 md:mt-12">
+          {/* Botón con margen adaptable */}
+          <div className="mt-16 md:mt-12">
             <Button
               variant="outline"
               className="px-6 py-3 md:py-6 text-base font-medium bg-[#9966FF] hover:bg-[#b9e4d0] text-white border-none"
@@ -77,4 +78,3 @@ export function HeroSection() {
     </div>
   );
 }
-

@@ -34,10 +34,11 @@ export function Footer() {
                 Tel: +549 381 571-2204
               </Link>
               <Link 
-                href="mailto:rayuelaagenciadigital@gmail.com" 
+                href="mailto:contacto@somosrayuela.com" 
                 className="text-gray-300 hover:text-white transition-colors block"
               >
-                rayuelaagenciadigital@gmail.com
+                contacto@somosrayuela.com
+
               </Link>
             </div>
             

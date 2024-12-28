@@ -27,9 +27,9 @@ export function ContactForm() {
   return (
     <section className="py-8 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8 bg-[#e8f3ee] rounded-lg overflow-hidden">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-8 bg-[#e8f3ee] rounded-lg overflow-hidden">
           {/* Left Column - Message */}
-          <div className="p-4 md:p-8 flex flex-col items-center justify-center text-center md:text-left md:items-start relative">
+          <div className="p-8 flex flex-col items-center justify-center text-center relative min-h-[400px] md:min-h-0">
             {/* Imagen de fondo */}
             <div 
               className="absolute inset-0 bg-cover bg-center z-0" 
@@ -38,24 +38,24 @@ export function ContactForm() {
             {/* Contenido superpuesto */}
             <div className="relative z-10 w-full">
               <div className="mb-6 relative w-full">
-                <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-4 mb-6">
+                <div className="relative h-[300px] md:h-[200px]">
                   <Image
                     src="/assets/caras-15.png"
                     alt="Character 1"
-                    width={120}
-                    height={120}
-                    className="rounded-full md:mr-20 md:mt-4 md:-mb-10"
+                    width={180}
+                    height={180}
+                    className="rounded-full absolute left-0 top-0 md:mr-40 md:mt-4 md:-mb-20"
                   />
                   <Image
                     src="/assets/caras-16.png"
                     alt="Character 2"
-                    width={120}
-                    height={120}
-                    className="rounded-full md:ml-20 md:-mt-5"
+                    width={180}
+                    height={180}
+                    className="rounded-full absolute right-0 bottom-0 md:ml-60 md:-mt-5"
                   />
                 </div>
               </div>
-              <p className="text-base md:text-lg text-[#21211F] text-pretty max-w-md mx-auto md:mx-0 bg-white bg-opacity-75 p-4 rounded">
+              <p className="text-lg text-[#21211F] text-pretty max-w-md mx-auto p-4 rounded">
                 Queremos ser parte de tu crecimiento y acompañarte en cada paso. Contanos en qué podemos ayudarte y nos pondremos en contacto pronto para empezar juntos.
               </p>
             </div>
@@ -63,7 +63,7 @@ export function ContactForm() {
 
           {/* Right Column - Form */}
           <div className="bg-[#e8f3ee] p-4 md:p-8">
-            <form action={handleSubmit} className="space-y-4">
+            <form action={handleSubmit} className="space-y-3 md:space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Nombre y Apellido
@@ -72,7 +72,7 @@ export function ContactForm() {
                   id="name"
                   name="name"
                   required
-                  className="bg-white border-gray-200 w-full"
+                  className="bg-white border-gray-200 w-full h-10"
                 />
               </div>
               <div>
@@ -84,7 +84,7 @@ export function ContactForm() {
                   name="email"
                   type="email"
                   required
-                  className="bg-white border-gray-200 w-full"
+                  className="bg-white border-gray-200 w-full h-10"
                 />
               </div>
               <div>
@@ -95,7 +95,7 @@ export function ContactForm() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  className="bg-white border-gray-200 w-full"
+                  className="bg-white border-gray-200 w-full h-10"
                 />
               </div>
               <div>
@@ -111,7 +111,7 @@ export function ContactForm() {
               </div>
               <Button 
                 type="submit" 
-                className="w-full bg-purple-500 hover:bg-purple-600 py-2 md:py-3 text-white"
+                className="w-full bg-[#9966FF] hover:bg-[#8a5ce6] text-white py-2 h-10"
                 disabled={sending}
               >
                 {sending ? 'Enviando...' : 'Enviar'}

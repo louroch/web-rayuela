@@ -25,44 +25,44 @@ export function ContactForm() {
   }
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-8 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 bg-[#e8f3ee] rounded-lg overflow-hidden">
           {/* Left Column - Message */}
-          <div className="p-8 flex flex-col items-center justify-center text-center md:text-left md:items-start relative">
+          <div className="p-4 md:p-8 flex flex-col items-center justify-center text-center md:text-left md:items-start relative">
             {/* Imagen de fondo */}
             <div 
               className="absolute inset-0 bg-cover bg-center z-0" 
               style={{backgroundImage: "url('assets/bg-cf.webp')"}}
             ></div>
             {/* Contenido superpuesto */}
-            <div className="relative z-10">
+            <div className="relative z-10 w-full">
               <div className="mb-6 relative w-full">
-                <div className="flex flex-col items-center gap-4 mb-6">
+                <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-4 mb-6">
                   <Image
                     src="/assets/caras-15.png"
                     alt="Character 1"
-                    width={180}
-                    height={180}
-                    className="rounded-full mr-40 mt-4 -mb-20 flex"
+                    width={120}
+                    height={120}
+                    className="rounded-full md:mr-20 md:mt-4 md:-mb-10"
                   />
                   <Image
                     src="/assets/caras-16.png"
                     alt="Character 2"
-                    width={180}
-                    height={180}
-                    className="rounded-full ml-60 -mt-5"
+                    width={120}
+                    height={120}
+                    className="rounded-full md:ml-20 md:-mt-5"
                   />
                 </div>
               </div>
-              <p className="text-lg text-[#21211F] text-pretty max-w-md  bg-opacity-75 p-4 rounded">
+              <p className="text-base md:text-lg text-[#21211F] text-pretty max-w-md mx-auto md:mx-0 bg-white bg-opacity-75 p-4 rounded">
                 Queremos ser parte de tu crecimiento y acompañarte en cada paso. Contanos en qué podemos ayudarte y nos pondremos en contacto pronto para empezar juntos.
               </p>
             </div>
           </div>
 
           {/* Right Column - Form */}
-          <div className="bg-[#e8f3ee] p-8">
+          <div className="bg-[#e8f3ee] p-4 md:p-8">
             <form action={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -72,7 +72,7 @@ export function ContactForm() {
                   id="name"
                   name="name"
                   required
-                  className="bg-white border-gray-200"
+                  className="bg-white border-gray-200 w-full"
                 />
               </div>
               <div>
@@ -84,7 +84,7 @@ export function ContactForm() {
                   name="email"
                   type="email"
                   required
-                  className="bg-white border-gray-200"
+                  className="bg-white border-gray-200 w-full"
                 />
               </div>
               <div>
@@ -95,7 +95,7 @@ export function ContactForm() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  className="bg-white border-gray-200"
+                  className="bg-white border-gray-200 w-full"
                 />
               </div>
               <div>
@@ -106,12 +106,12 @@ export function ContactForm() {
                   id="message"
                   name="message"
                   required
-                  className="min-h-[100px] bg-white border-gray-200"
+                  className="min-h-[100px] bg-white border-gray-200 w-full"
                 />
               </div>
               <Button 
                 type="submit" 
-                className="w-full bg-purple-500 hover:bg-purple-600"
+                className="w-full bg-purple-500 hover:bg-purple-600 py-2 md:py-3 text-white"
                 disabled={sending}
               >
                 {sending ? 'Enviando...' : 'Enviar'}

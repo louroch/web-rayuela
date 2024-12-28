@@ -10,9 +10,12 @@ export function HeroSection() {
   const [showText, setShowText] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const hideText = () => {
       setShowText(false);
-    }, 5000); // El texto desaparecerá después de 5 segundos
+      setTimeout(() => setShowText(true), 3000); // El texto reaparece después de 3 segundos
+    };
+
+    const timer = setTimeout(hideText, 5000); // El texto desaparece después de 5 segundos
 
     return () => clearTimeout(timer);
   }, []);
@@ -42,10 +45,10 @@ export function HeroSection() {
       </div>
 
       {/* Contenido */}
-      <div className="absolute inset-0 z-10 flex flex-col justify-center md:justify-start">
+      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center md:items-start md:justify-start">
         {/* Textos principales */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-32 space-y-8 md:space-y-12">
-          <div className="max-w-xl md:max-w-2xl lg:max-w-3xl">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-32 space-y-8 md:space-y-12 text-center md:text-left">
+          <div className="max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto md:mx-0">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6">
               <span className="block text-[#9966FF]">ESTRATEGIAS QUE</span>
               <span className="block text-[#9966FF]">TRANSFORMAN</span>
@@ -59,7 +62,7 @@ export function HeroSection() {
             </h2>
           </div>
 
-          {/* Botón (visible en todas las pantallas) */}
+          {/* Botón (centrado en todas las pantallas) */}
           <div className="mt-8 md:mt-12">
             <Button
               variant="outline"

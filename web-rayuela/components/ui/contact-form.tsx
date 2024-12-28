@@ -38,22 +38,23 @@ export function ContactForm() {
             {/* Contenido superpuesto */}
             <div className="relative z-10 w-full">
               <div className="mb-6 relative w-full">
-                <div className="relative h-[300px] md:h-[200px]">
-                  <Image
-                    src="/assets/caras-15.png"
-                    alt="Character 1"
-                    width={180}
-                    height={180}
-                    className="rounded-full absolute left-0 top-0 md:mr-40 md:mt-4 md:-mb-20"
-                  />
-                  <Image
-                    src="/assets/caras-16.png"
-                    alt="Character 2"
-                    width={180}
-                    height={180}
-                    className="rounded-full absolute right-0 bottom-0 md:ml-70 md:-mt-5"
-                  />
-                </div>
+              <div className="relative h-[280px] md:h-[200px]">
+  <Image
+    src="/assets/caras-15.png"
+    alt="Character 1"
+    width={140}
+    height={140}
+    className="rounded-full absolute left-4 top-4 md:left-8 md:top-8"
+  />
+  <Image
+    src="/assets/caras-16.png"
+    alt="Character 2"
+    width={140}
+    height={140}
+    className="rounded-full absolute right-4 bottom-4 md:right-8 md:bottom-8"
+  />
+</div>
+
               </div>
               <p className="text-lg text-[#21211F] text-pretty max-w-md mx-auto p-4 rounded">
                 Queremos ser parte de tu crecimiento y acompañarte en cada paso. Contanos en qué podemos ayudarte y nos pondremos en contacto pronto para empezar juntos.

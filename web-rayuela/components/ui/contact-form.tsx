@@ -51,7 +51,7 @@ export function ContactForm() {
                     alt="Character 2"
                     width={180}
                     height={180}
-                    className="rounded-full absolute right-0 bottom-0 md:ml-60 md:-mt-5"
+                    className="rounded-full absolute right-0 bottom-0 md:ml-70 md:-mt-5"
                   />
                 </div>
               </div>

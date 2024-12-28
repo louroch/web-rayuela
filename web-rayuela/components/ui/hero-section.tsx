@@ -64,7 +64,7 @@ export function HeroSection() {
           </div>
 
           {/* Botón con margen adaptable */}
-          <div className="mt-16 md:mt-12">
+          <div className="mt-24 md:mt-12">
             <Button
               variant="outline"
               className="px-6 py-3 md:py-6 text-base font-medium bg-[#9966FF] hover:bg-[#b9e4d0] text-white border-none"

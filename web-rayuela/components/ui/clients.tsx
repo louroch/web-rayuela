@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import Image from "next/image"
 
 const CLIENTS = [
@@ -13,31 +12,6 @@ const CLIENTS = [
 ]
 
 export function Clients() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current
-    if (!scrollContainer) return
-
-    let animationFrameId: number
-    let position = 0
-
-    const scroll = () => {
-      position += 0.5
-      if (position >= scrollContainer.scrollWidth / 2) {
-        position = 0
-      }
-      scrollContainer.scrollLeft = position
-      animationFrameId = requestAnimationFrame(scroll)
-    }
-
-    animationFrameId = requestAnimationFrame(scroll)
-
-    return () => {
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
-
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,52 +20,23 @@ export function Clients() {
             Clientes que eligen nuestra experiencia para alcanzar resultados.
           </h2>
 
-          <div className="w-full overflow-hidden mb-12">
-            <div 
-              ref={scrollRef}
-              className="flex gap-8 overflow-hidden"
-              style={{
-                maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
-              }}
-            >
-              {/* Original clients */}
-              {CLIENTS.map((client, index) => (
-                <div
-                  key={client.name}
-                  className="flex-shrink-0 w-[120px]"
-                >
-                  <div className="relative w-full aspect-square">
-                    <Image
-                      src={client.logo}
-                      alt={`${client.name} logo`}
-                      fill
-                      sizes="120px"
-                      className="object-contain"
-                      priority={index < 4}
-                    />
-                  </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 w-full">
+            {CLIENTS.map((client) => (
+              <div
+                key={client.name}
+                className="flex items-center justify-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="relative w-full aspect-square">
+                  <Image
+                    src={client.logo}
+                    alt={`${client.name} logo`}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
+                    className="object-contain"
+                  />
                 </div>
-              ))}
-              {/* Duplicate for seamless loop */}
-              {CLIENTS.map((client) => (
-                <div
-                  key={`${client.name}-duplicate`}
-                  className="flex-shrink-0 w-[120px]"
-                >
-                  <div className="relative w-full aspect-square">
-                    <Image
-                      src={client.logo}
-                      alt={`${client.name} logo`}
-                      fill
-                      sizes="120px"
-                      className="object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

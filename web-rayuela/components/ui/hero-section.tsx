@@ -27,7 +27,7 @@ export function HeroSection() {
   return (
     <div className="relative w-full bg-[#21211F]">
       {/* Contenedor del fondo */}
-      <div className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9]">
+      <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] md:aspect-[3/4] lg:aspect-[2/3]">
         <picture>
           <source media="(min-width: 768px)" srcSet="/assets/portada.png" />
           <Image

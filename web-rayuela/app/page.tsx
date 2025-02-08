@@ -1,19 +1,22 @@
-import { HeroSection } from "@/components/ui/hero-section";
-import { Features } from "@/components/ui/features";
-import { Clients } from "@/components/ui/clients";
-import { ContactForm } from "@/components/ui/contact-form";
+import Head from "next/head";
+import { HeroSection } from "@/components/ui/hero-section"
+import { Features } from "@/components/ui/features"
+import { Clients } from "@/components/ui/clients"
+import { ContactForm } from "@/components/ui/contact-form"
 
-export default async function Home() {
-  const res = await fetch("https://api.ejemplo.com/data", { next: { revalidate: 60 } });
-  const json = await res.json();
-
+export default function Home() {
   return (
-    <main className="flex-grow">
-      <HeroSection />
-      <Features />
-      <Clients />
-      <ContactForm />
-      <pre>{JSON.stringify(json, null, 2)}</pre>
-    </main>
-  );
+    <>
+      <Head>
+        <title>Rayuela - Agencia Digital</title>
+        <link rel="icon" href="/favicon.svg" />
+      </Head>
+      <main className="flex-grow">
+        <HeroSection />
+        <Features />
+        <Clients />
+        <ContactForm />
+      </main>
+    </>  
+  )
 }

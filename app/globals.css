@@ -78,7 +78,7 @@ body {
   font-family: monospace;
   font-size: 30px;
   color: transparent;
-  background: linear-gradient(90deg, #ffffff calc(50% - 0.5ch), #C02942 0 calc(50% + 0.5ch), #ffffff 0) right/calc(200% + 1ch) 100%;
+  background: linear-gradient(90deg, #ffffff calc(50% - 0.5ch), #b9e4d0 0 calc(50% + 0.5ch), #ffffff 0) right/calc(200% + 1ch) 100%;
   -webkit-background-clip: text;
   background-clip: text;
   animation: l8 2s infinite steps(11);

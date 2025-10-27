@@ -19,12 +19,18 @@ export default function Home() {
             Pronto podrás disfrutar de una experiencia mejorada.
           </p>
           <div className="flex justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/mantenimiento.png"
+              src={"/assets/mantenimiento.png"}
               alt="Mantenimiento"
               width={300}
               height={300}
               className="animate-pulse"
+              loading="eager"
+              onError={(e) => {
+                console.error("Error loading image:", e);
+                e.currentTarget.src = "/assets/mantenimiento.png";
+              }}
             />
           </div>
         </div>

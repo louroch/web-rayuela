@@ -20,6 +20,7 @@ export default function Home() {
               width={300}
               height={300}
               className="animate-pulse"
+              unoptimized
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-4">

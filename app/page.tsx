@@ -26,11 +26,6 @@ export default function Home() {
               width={300}
               height={300}
               className="animate-pulse"
-              loading="eager"
-              onError={(e) => {
-                console.error("Error loading image:", e);
-                e.currentTarget.src = "/assets/mantenimiento.png";
-              }}
             />
           </div>
         </div>

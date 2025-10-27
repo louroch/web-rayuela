@@ -1,5 +1,6 @@
 {
   "buildCommand": "cd web-rayuela && npm run build",
   "outputDirectory": "web-rayuela/.next",
-  "installCommand": "cd web-rayuela && npm install"
+  "installCommand": "cd web-rayuela && npm install",
+  "framework": "nextjs"
 }

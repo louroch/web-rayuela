@@ -18,6 +18,7 @@ export default function Home() {
           <p className="text-xl md:text-2xl text-gray-200 mb-8">
             Pronto podrás disfrutar de una experiencia mejorada.
           </p>
+          <div className="loader"></div>
           <div className="flex justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -13,24 +13,20 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#21211F] to-[#9966FF] flex items-center justify-center px-4">
         <div className="text-center text-white">
-          <h1 className="text-4xl md:text-6xl font-bold mb-8">
-            Estamos trabajando para usted
-          </h1>
           <div className="flex justify-center mb-8">
             <Image
               src="/assets/mantenimiento.png"
               alt="Mantenimiento"
-              width={400}
-              height={400}
+              width={300}
+              height={300}
               className="animate-pulse"
             />
           </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+            Estamos renovando nuestro sitio
+          </h1>
           <p className="text-xl md:text-2xl text-gray-200">
-            Estamos mejorando nuestro sitio web para brindarte una mejor experiencia.
-            <br />
-            <span className="text-sm text-gray-300 mt-4 block">
-              Volveremos pronto
-            </span>
+            Pronto podrás disfrutar de una experiencia mejorada.
           </p>
         </div>
       </div>

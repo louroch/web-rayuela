@@ -12,12 +12,14 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) { 
+  const isMaintenanceMode = process.env.MAINTENANCE_MODE === 'true'
+  
   return ( 
     <html lang="es"> 
       <body className={inter.className}> 
-        <NavBar /> 
+        {!isMaintenanceMode && <NavBar />}
         <main>{children}</main> 
-        <Footer /> 
+        {!isMaintenanceMode && <Footer />}
       </body> 
     </html> 
   ) 

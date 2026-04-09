@@ -18,6 +18,7 @@ interface ServicePageLayoutProps {
   children: React.ReactNode
   galleryImages?: string[]
   heroImage?: string
+  featuresGridClassName?: string
 }
 
 export function ServicePageLayout({
@@ -27,6 +28,7 @@ export function ServicePageLayout({
   features,
   children,
   galleryImages = [],
+  featuresGridClassName = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
 }: ServicePageLayoutProps) {
   return (
     <div className="bg-[#21211F] min-h-screen">
@@ -121,10 +123,10 @@ export function ServicePageLayout({
         >
           <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-12">
             <span className="bg-gradient-to-r from-[#9966FF] to-[#8BC1A7] bg-clip-text text-transparent">
-              Nuestros Servicios
+              Cómo convertimos ideas en resultados
             </span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={featuresGridClassName}>
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}

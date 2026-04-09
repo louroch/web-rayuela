@@ -233,10 +233,11 @@ export default function NosotrosPage() {
             </p>
             <div className="space-y-4">
               {[
-                { title: "Diseño Creativo", desc: "Identidad visual y contenido cautivador que conecta con tu audiencia." },
-                { title: "Gestión de Redes Sociales", desc: "Estrategias que aumentan la visibilidad y el engagement." },
-                { title: "Desarrollo Web", desc: "Sitios intuitivos y atractivos que convierten visitantes en clientes." },
-                { title: "Publicidad Online", desc: "Campañas optimizadas para máximo retorno de inversión." }
+                { title: "Branding & Diseño Omnicanal", desc: "Construimos identidad coherente en digital y físico." },
+                { title: "Desarrollo Web", desc: "Creamos sitios que ordenan, comunican y convierten." },
+                { title: "Paid Media & Performance", desc: "Optimizamos inversión publicitaria con foco en resultados." },
+                { title: "Social Media & Creación de Contenido", desc: "Diseñamos contenido estratégico con voz de marca." },
+                { title: "Consultoría & Project Management", desc: "Alineamos equipos, tiempos y decisiones para avanzar." }
               ].map((service, index) => (
                 <div key={index} className="flex items-start">
                   <Check className="h-5 w-5 text-[#9966FF] mr-3 mt-1 flex-shrink-0" />

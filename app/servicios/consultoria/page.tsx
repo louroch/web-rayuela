@@ -19,6 +19,7 @@ export default function ConsultoriaPage() {
       }
       title="Consultoría & Project Management"
       description="Orquestamos el éxito. Los datos son oro y las buenas ideas necesitan ejecución. Vos ponés la visión, nosotros el orden y la estrategia."
+      featuresGridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
       features={[
         {
           title: "Auditoría 360°",

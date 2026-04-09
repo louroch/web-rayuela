@@ -135,9 +135,6 @@ export function ServicesSection() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
             Tu marca en 360°: Del <span className="text-[#9966FF]">píxel</span> al <span className="text-[#8BC1A7]">papel</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Aquí rompemos la barrera digital/física. Usamos íconos dinámicos.
-          </p>
         </motion.div>
 
         <ServicesMobileCarousel />

@@ -115,7 +115,7 @@ export function ContactForm() {
                 type="button"
                 onClick={() => {
                   setContactMethod('whatsapp')
-                  document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }}
                 className={`p-4 rounded-full transition-all duration-300 ${
                   contactMethod === 'whatsapp'
@@ -130,7 +130,7 @@ export function ContactForm() {
                 type="button"
                 onClick={() => {
                   setContactMethod('email')
-                  document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }}
                 className={`p-4 rounded-full transition-all duration-300 ${
                   contactMethod === 'email'
@@ -159,7 +159,7 @@ export function ContactForm() {
           </div>
 
           {/* Right Column - Form */}
-          <div id="contact-form-container" className="bg-white p-8 md:p-12 flex flex-col justify-center scroll-mt-24">
+          <div id="contact-form" className="bg-white p-8 md:p-12 flex flex-col justify-center scroll-mt-24">
             <form 
               action={contactMethod === 'email' ? handleSubmit : undefined}
               onSubmit={contactMethod === 'whatsapp' ? handleWhatsAppSubmit : undefined}

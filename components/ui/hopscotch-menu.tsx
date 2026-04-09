@@ -130,29 +130,50 @@ export function HopscotchMenu() {
 
   useEffect(() => {
     const uniqueSectionIds = Array.from(new Set(CELLS.map((c) => c.sectionId)))
-    const observers: IntersectionObserver[] = []
-    
-    uniqueSectionIds.forEach((id) => {
-      const el = document.getElementById(id)
-      if (!el) return
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              if (activeSectionRef.current === id) return
+    const sectionElements = uniqueSectionIds
+      .map((id) => ({ id, el: document.getElementById(id) }))
+      .filter((item): item is { id: string; el: HTMLElement } => item.el !== null)
 
-              setActiveSection(id)
-              activeSectionRef.current = id
-              setActiveCellId(SECTION_TO_CELL_ID[id] || CELLS[CELLS.length - 1].id)
-            }
-          })
-        },
-        { threshold: 0, rootMargin: '-40% 0px -40% 0px' }
-      )
-      observer.observe(el)
-      observers.push(observer)
-    })
-    return () => observers.forEach((o) => o.disconnect())
+    if (!sectionElements.length) return
+
+    let rafId: number | null = null
+
+    const updateActiveSectionByScroll = () => {
+      rafId = null
+      const probeY = window.scrollY + HEADER_OFFSET + window.innerHeight * 0.35
+      let nextSectionId = sectionElements[0].id
+
+      for (const section of sectionElements) {
+        if (section.el.offsetTop <= probeY) {
+          nextSectionId = section.id
+        } else {
+          break
+        }
+      }
+
+      if (activeSectionRef.current === nextSectionId) return
+
+      setActiveSection(nextSectionId)
+      activeSectionRef.current = nextSectionId
+      setActiveCellId(SECTION_TO_CELL_ID[nextSectionId] || CELLS[CELLS.length - 1].id)
+    }
+
+    const onScrollOrResize = () => {
+      if (rafId !== null) return
+      rafId = window.requestAnimationFrame(updateActiveSectionByScroll)
+    }
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true })
+    window.addEventListener('resize', onScrollOrResize)
+    onScrollOrResize()
+
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId)
+      }
+      window.removeEventListener('scroll', onScrollOrResize)
+      window.removeEventListener('resize', onScrollOrResize)
+    }
   }, [])
 
   const scrollToSection = (sectionId: string) => {

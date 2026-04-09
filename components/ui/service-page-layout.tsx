@@ -26,7 +26,6 @@ export function ServicePageLayout({
   features,
   children,
   galleryImages = [],
-  heroImage,
 }: ServicePageLayoutProps) {
   return (
     <div className="bg-[#21211F] min-h-screen">

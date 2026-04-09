@@ -51,7 +51,7 @@ export function ManifestoSection() {
                 En 2023 nacimos digitales, pero todo se transforma y nosotros también. Hoy entendemos que una marca no vive solo en una pantalla. Vive en un evento, se toca en una tarjeta de presentación, se impone en la vía pública y se gestiona con precisión de relojero.
               </p>
               <p>
-                Olvidate de las fórmulas mágicas de "llevar tu negocio al siguiente nivel". Acá hablamos de saltos reales. De avanzar casillero a casillero con una estrategia hecha a medida. Porque en Rayuela, cada cliente tiene un tablero distinto y las reglas se adaptan a lo que tu negocio realmente necesita, no a lo que un "paquete estándar" te quiere vender.
+                Olvidate de las fórmulas mágicas de &quot;llevar tu negocio al siguiente nivel&quot;. Acá hablamos de saltos reales. De avanzar casillero a casillero con una estrategia hecha a medida. Porque en Rayuela, cada cliente tiene un tablero distinto y las reglas se adaptan a lo que tu negocio realmente necesita, no a lo que un &quot;paquete estándar&quot; te quiere vender.
               </p>
             </motion.div>
           </div>

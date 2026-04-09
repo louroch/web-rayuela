@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Brush, Megaphone, Share2, FileEdit, BarChart3, Globe } from 'lucide-react'
+import { Brush, Globe, Megaphone, Share2, BarChart3 } from 'lucide-react'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,63 +11,65 @@ import {
   NavigationMenuItem,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
+import { ContactModal } from "@/components/ui/contact-modal"
+import { SERVICE_SVGS } from "@/lib/service-svgs"
 
 const services = [
   {
-    title: "Diseño Gráfico",
+    title: "Branding & Diseño Omnicanal",
+    subtitle: "Del píxel al papel",
     href: "/servicios/diseno-grafico",
-    description: "Creación de identidad visual y materiales gráficos impactantes",
-    icon: Brush
+    icon: Brush,
+    iconSrc: SERVICE_SVGS.branding,
   },
   {
-    title: "Publicidad Online",
-    href: "/servicios/publicidad-online",
-    description: "Campañas publicitarias efectivas en plataformas digitales",
-    icon: Megaphone
-  },
-  {
-    title: "Social Media",
-    href: "/servicios/social-media",
-    description: "Gestión estratégica de redes sociales y comunidad",
-    icon: Share2
-  },
-  {
-    title: "Creación de contenido",
-    href: "/servicios/creacion-contenido",
-    description: "Contenido relevante y atractivo para tu audiencia",
-    icon: FileEdit
-  },
-  {
-    title: "Consultoría y análisis",
-    href: "/servicios/consultoria",
-    description: "Análisis de datos y estrategias basadas en resultados",
-    icon: BarChart3
-  },
-  {
-    title: "Presencia en Web",
+    title: "Desarrollo Web",
+    subtitle: "Tu casa matriz digital",
     href: "/servicios/desarrollo-web",
-    description: "Desarrollo web y optimización de tu presencia digital",
-    icon: Globe
+    icon: Globe,
+    iconSrc: SERVICE_SVGS.web,
+  },
+  {
+    title: "Paid Media & Performance",
+    subtitle: "Inversión, no gasto",
+    href: "/servicios/publicidad-online",
+    icon: Megaphone,
+    iconSrc: SERVICE_SVGS.paid,
+  },
+  {
+    title: "Social Media & Creación de Contenido",
+    subtitle: "La voz de tu juego",
+    href: "/servicios/social-media",
+    icon: Share2,
+    iconSrc: SERVICE_SVGS.contenido,
+  },
+  {
+    title: "Consultoría & Project Management",
+    subtitle: "Orquestamos el éxito",
+    href: "/servicios/consultoria",
+    icon: BarChart3,
+    iconSrc: SERVICE_SVGS.consultoria,
   }
 ]
 
 export function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
   return (
-    <nav className="bg-[#21211F] shadow-md sticky top-0 z-50">
+    <nav className="bg-[#21211F]/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-18">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 flex items-center">
+          <Link href="/" className="flex-shrink-0 flex items-center group">
             <Image
               src="/assets/rayuelalogo.svg"
               alt="Logo de Rayuela"
               width={95}
               height={95}
               priority
-              className="h-16 w-auto"
+              className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
@@ -87,38 +89,53 @@ export function NavBar() {
           </button>
 
           {/* Menú de navegación (pantallas grandes) */}
-          <div className="hidden sm:flex sm:space-x-8 sm:ml-auto">
+          <div className="hidden sm:flex sm:space-x-8 sm:ml-auto items-center">
             <Link
               href="/"
-              className="text-white hover:text-[#8BC1A7] px-1 pt-1 border-b-2 border-transparent hover:border-[#9966FF]"
+              className="text-white/90 hover:text-white px-3 py-2 transition-colors duration-300 font-medium text-sm"
             >
               Inicio
             </Link>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-[#9966FF] text-white px-2 pt-2 border-b-2 border-transparent hover:border-[#9966FF] hover:bg-[#9966FF] hover:text-white">
+                  <NavigationMenuTrigger className="text-white/90 hover:text-white px-3 py-2 transition-colors duration-300 font-medium text-sm bg-transparent hover:bg-transparent">
                     Servicios
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[300px] p-4">
-                      <div className="max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-[#9966FF] scrollbar-track-gray-200">
+                    <div className="w-[340px] p-4 bg-[#21211F] rounded-xl shadow-2xl border border-white/10">
+                      <div className="max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-[#9966FF] scrollbar-track-gray-800">
                         {services.map((service) => (
                           <Link
                             key={service.title}
                             href={service.href}
-                            className="group flex items-start gap-4 p-3 rounded-lg hover:bg-gray-100 transition-colors"
+                            className="group flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-all duration-300"
                           >
-                            <div className="mt-1 flex-shrink-0">
-                              <service.icon className="h-5 w-5 text-[#9966FF] group-hover:text-[#8BC1A7]" />
+                            <div
+                              className={
+                                "iconSrc" in service && service.iconSrc
+                                  ? "mt-1 flex-shrink-0 w-11 h-11 flex items-center justify-center"
+                                  : "mt-1 flex-shrink-0 p-2 rounded-lg bg-gradient-to-br from-[#9966FF]/20 to-[#8BC1A7]/20 group-hover:from-[#9966FF]/30 group-hover:to-[#8BC1A7]/30 transition-all duration-300 w-9 h-9 flex items-center justify-center"
+                              }
+                            >
+                              {"iconSrc" in service && service.iconSrc ? (
+                                <Image
+                                  src={service.iconSrc}
+                                  alt=""
+                                  width={44}
+                                  height={44}
+                                  className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300"
+                                  unoptimized
+                                />
+                              ) : (
+                                <service.icon className="h-5 w-5 text-[#9966FF] group-hover:scale-110 transition-transform duration-300" />
+                              )}
                             </div>
                             <div>
-                              <div className="font-medium text-gray-900 group-hover:text-[#9966FF]">
+                              <div className="font-semibold text-white group-hover:text-[#9966FF] transition-colors">
                                 {service.title}
                               </div>
-                              <p className="text-sm text-gray-500 group-hover:text-gray-900">
-                                {service.description}
-                              </p>
+                              <div className="text-xs text-[#8BC1A7] mt-0.5">{service.subtitle}</div>
                             </div>
                           </Link>
                         ))}
@@ -129,24 +146,24 @@ export function NavBar() {
               </NavigationMenuList>
             </NavigationMenu>
             <Link
-              href="/contacto"
-              className="text-white hover:text-[#8BC1A7] px-1 pt-1 border-b-2 border-transparent hover:border-[#9966FF]"
-            >
-              Contacto
-            </Link>
-            <Link
               href="/nosotros"
-              className="text-white hover:text-[#8BC1A7] px-1 pt-1 border-b-2 border-transparent hover:border-[#9966FF]"
+              className="text-white/90 hover:text-white px-3 py-2 transition-colors duration-300 font-medium text-sm"
             >
               Nosotros
             </Link>
+            <button
+              onClick={() => setIsContactModalOpen(true)}
+              className="ml-4 px-6 py-2 bg-[#9966FF] hover:bg-[#8a5ce6] text-white rounded-lg transition-all duration-300 font-medium text-sm"
+            >
+              Contacto
+            </button>
           </div>
         </div>
 
         {/* Menú hamburguesa (pantallas pequeñas) */}
         {isOpen && (
           <div 
-            className="sm:hidden bg-[#21211F] space-y-4 mt-4 p-4 absolute w-full left-0 transform transition-transform duration-300 ease-in-out"
+            className="sm:hidden bg-[#21211F] border-t border-white/10 space-y-4 mt-4 p-4 absolute w-full left-0 shadow-xl"
             style={{
               animation: isOpen ? 'slideIn 0.3s ease-out forwards' : 'none'
             }}
@@ -154,57 +171,71 @@ export function NavBar() {
             <Link
               href="/"
               onClick={() => setIsOpen(false)}
-              className="block text-white hover:text-[#8BC1A7]"
+              className="block text-white hover:text-[#9966FF] py-2"
             >
               Inicio
             </Link>
             <button
               onClick={() => setIsServicesOpen(!isServicesOpen)}
-              className=" text-white hover:text-[#8BC1A7] flex items-center justify-between w-full"
+              className="text-white hover:text-[#9966FF] flex items-center justify-between w-full py-2"
               aria-expanded={isServicesOpen}
             >
               Servicios
               {isServicesOpen ? (
-                <span className="ml-2">-</span>
+                <span className="ml-2">−</span>
               ) : (
                 <span className="ml-2">+</span>
               )}
             </button>
             {isServicesOpen && (
-              <div className="pl-4 pr-2 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#9966FF] scrollbar-track-gray-800">
+              <div className="pl-4 pr-2 max-h-[320px] overflow-y-auto">
                 {services.map((service) => (
                   <Link
                     key={service.title}
                     href={service.href}
                     onClick={() => setIsOpen(false)}
-                    className="block text-white hover:text-[#8BC1A7] py-2"
+                    className="block text-white hover:text-[#9966FF] py-2"
                   >
                     <div className="flex items-center gap-2">
-                      <service.icon className="h-4 w-4 flex-shrink-0" />
-                      <span>{service.title}</span>
+                      {"iconSrc" in service && service.iconSrc ? (
+                        <Image
+                          src={service.iconSrc}
+                          alt=""
+                          width={36}
+                          height={36}
+                          className="h-9 w-9 flex-shrink-0 object-contain"
+                          unoptimized
+                        />
+                      ) : (
+                        <service.icon className="h-4 w-4 flex-shrink-0 text-[#9966FF]" />
+                      )}
+                      <span className="font-medium">{service.title}</span>
                     </div>
-                    <p className="text-sm text-gray-400 mt-1">{service.description}</p>
+                    <div className="text-xs text-[#8BC1A7] mt-0.5">{service.subtitle}</div>
                   </Link>
                 ))}
               </div>
             )}
             <Link
-              href="/contacto"
-              onClick={() => setIsOpen(false)}
-              className="block text-white hover:text-[#8BC1A7]"
-            >
-              Contacto
-            </Link>
-            <Link
               href="/nosotros"
               onClick={() => setIsOpen(false)}
-              className="block text-white hover:text-[#8BC1A7]"
+              className="block text-white hover:text-[#9966FF] py-2"
             >
               Nosotros
             </Link>
+            <button
+              onClick={() => {
+                setIsContactModalOpen(true)
+                setIsOpen(false)
+              }}
+              className="block mt-4 px-6 py-3 bg-[#9966FF] hover:bg-[#8a5ce6] text-white rounded-lg text-center font-medium w-full"
+            >
+              Contacto
+            </button>
           </div>
         )}
       </div>
+      <ContactModal open={isContactModalOpen} onOpenChange={setIsContactModalOpen} />
     </nav>
   )
 }

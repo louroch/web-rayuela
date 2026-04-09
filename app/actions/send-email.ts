@@ -20,16 +20,22 @@ export async function sendEmail(formData: FormData) {
 
   try {
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.CONTACT_EMAIL,
-      subject: `Nuevo mensaje de contacto de ${name}`,
+      from: `"Web Rayuela" <${process.env.SMTP_FROM || 'rayuelaagenciadigital@gmail.com'}>`,
+      replyTo: email,
+      to: process.env.CONTACT_EMAIL || 'rayuelaagenciadigital@gmail.com',
+      subject: `[Web Rayuela] Nuevo mensaje de contacto de ${name}`,
       text: `
+        Origen: formulario de contacto en la web de Rayuela
+
         Nombre: ${name}
         Email: ${email}
         Teléfono: ${phone}
         Mensaje: ${message}
       `,
       html: `
+        <p style="margin:0 0 16px;padding:12px 16px;background:#f4f0ff;border-left:4px solid #9966FF;color:#333;font-size:14px;">
+          Este mensaje fue enviado desde el formulario de contacto en la <strong>web de Rayuela</strong>.
+        </p>
         <h1>Nuevo mensaje de contacto</h1>
         <p><strong>Nombre:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>

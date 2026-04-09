@@ -1,80 +1,98 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+
+const HEADER_OFFSET = 80;
 
 export function HeroSection() {
-  const router = useRouter();
-  const [showText, setShowText] = useState(true);
+  const handleThrowStone = () => {
+    const nextSectionId = "mas-alla-del-marketing";
+    const nextCellId = "cell-7";
+    const nextSection = document.getElementById(nextSectionId);
+    if (nextSection) {
+      const top = nextSection.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
 
-  useEffect(() => {
-    const hideText = () => {
-      setShowText(false);
-      setTimeout(() => setShowText(true), 3000); // El texto reaparece después de 3 segundos
-    };
-
-    const timer = setTimeout(hideText, 5000); // El texto desaparece después de 5 segundos
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleRedirect = () => {
-    router.push("contacto");
+    window.dispatchEvent(
+      new CustomEvent("rayuela:throw-stone", {
+        detail: {
+          sectionId: nextSectionId,
+          cellId: nextCellId,
+        },
+      })
+    );
   };
 
   return (
-    <div className="relative w-full bg-[#21211F]">
-      {/* Contenedor del fondo */}
-      <div className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9]">
-        <picture>
-          <source media="(min-width: 768px)" srcSet="/assets/portada.png" />
-          <Image
-            src="/assets/portada1.png"
-            alt="Equipo Rayuela"
-            fill
-            className="object-contain md:object-cover"
-            sizes="100vw"
-            priority
-            quality={90}
-          />
-        </picture>
-        {/* Overlay oscuro */}
-        <div className="absolute inset-0 bg-black/40" />
+    <section id="inicio" className="relative min-h-[80vh] flex items-center justify-center bg-[#21211F] overflow-hidden">
+      {/* Elementos geométricos decorativos */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Círculo grande */}
+        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-[#9966FF]/10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#8BC1A7]/10 blur-3xl" />
+        
+        {/* Líneas diagonales */}
+        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#9966FF]/20 to-transparent" />
+        <div className="absolute top-1/2 right-0 w-px h-64 bg-gradient-to-b from-transparent via-[#8BC1A7]/20 to-transparent" />
+        
+        {/* Formas geométricas */}
+        <div className="absolute top-20 right-20 w-32 h-32 border border-[#9966FF]/20 rotate-45" />
+        <div className="absolute bottom-32 left-32 w-24 h-24 bg-[#8BC1A7]/10 rounded-lg rotate-12" />
       </div>
 
-      {/* Contenido */}
-      <div className="absolute inset-0 z-10 flex flex-col justify-start lg:justify-center items-center md:items-start">
-        {/* Textos principales */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-32 space-y-8 md:space-y-12 text-center md:text-left">
-          <div className="max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto md:mx-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6">
-              <span className="block text-[#9966FF]">ESTRATEGIAS QUE</span>
-              <span className="block text-[#9966FF]">TRANSFORMAN</span>
-            </h1>
-            <h2
-              className={`text-lg md:text-2xl text-white/90 max-w-xl rounded-lg transition-opacity duration-1000 ${
-                showText ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              Somos más que una agencia, somos arquitectos de experiencias
-              digitales que convierten ideas en resultados tangibles.
-            </h2>
-          </div>
+      {/* Ilustración Meli - Posicionada absolutamente a la izquierda */}
+      <div className="hidden lg:flex absolute left-0 bottom-0 w-[35%] xl:w-[32%] h-[85%] z-10 pointer-events-none items-end">
+        <img
+          src={encodeURI("/svgs/Meli compo.svg")}
+          alt=""
+          role="presentation"
+          className="w-full h-full max-h-[85vh] object-contain object-left-bottom"
+        />
+      </div>
 
-          {/* Botón con margen adaptable */}
-          <div className="mt-40 sm:mt-36 md:mt-12">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-[80vh] flex items-center lg:justify-center">
+        <div className="w-full max-w-3xl flex flex-col justify-center text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-5xl xl:text-6xl font-bold text-white mb-6 leading-[0.95] tracking-tight">
+              No vendemos paquetes.
+              <br />
+              Diseñamos tu{" "}
+              <span className="text-[#9966FF]">próxima jugada</span>.
+            </h1>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
+          >
+            Somos Rayuela. Una agencia creativa que entiende que para llegar a la cima, primero hay que saber pisar firme en la Tierra. Estrategia, diseño, gestión y experiencias reales para negocios que no encajan en moldes prefabricados.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex justify-center"
+          >
             <Button
-              variant="outline"
-              className="px-6 py-3 md:py-6 text-base font-medium bg-[#9966FF] hover:bg-[#b9e4d0] text-white border-none"
-              onClick={handleRedirect}
+              onClick={handleThrowStone}
+              className="group px-8 py-6 text-lg font-medium bg-[#9966FF] hover:bg-[#8a5ce6] text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              ¿Dónde encontrarnos?
+              Tirá la piedra: Conocé nuestra jugada
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

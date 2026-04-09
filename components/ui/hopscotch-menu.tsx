@@ -1,0 +1,250 @@
+'use client'
+
+import { useEffect, useState, useRef, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
+
+const VIEWBOX_WIDTH = 468.6
+const VIEWBOX_HEIGHT = 1215.3
+
+const HEADER_OFFSET = 80
+const PEBBLE_HALF = 8
+
+const DEBUG_HIT_AREAS = false // Activado para que puedas ver y ajustar los círculos
+
+// Definición manual de casilleros con coordenadas del centro en el viewBox
+const CELLS = [
+  { id: 'cell-home', label: 'Inicio', sectionId: 'inicio', x: 234, y: 110, r: 54 },
+  { id: 'cell-7', label: 'Más allá del Marketing', sectionId: 'mas-alla-del-marketing', x: 234, y: 380, r: 46 },
+  { id: 'cell-5', label: 'Tu marca en 360°', sectionId: 'tu-marca-en-360', x: 140, y: 530, r: 46 },
+  { id: 'cell-6', label: 'Nuestro proceso', sectionId: 'nuestro-proceso', x: 328, y: 530, r: 46 },
+  { id: 'cell-4', label: 'Lo que dicen nuestros clientes', sectionId: 'testimonios', x: 234, y: 705, r: 44 },
+  { id: 'cell-2', label: '¿Jugamos?', sectionId: 'jugamos', x: 140, y: 912, r: 46 },
+  { id: 'cell-3', label: '¿Jugamos?', sectionId: 'jugamos', x: 328, y: 912, r: 46 },
+  { id: 'cell-1', label: 'Footer', sectionId: 'footer', x: 234, y: 1088, r: 48 },
+]
+
+const SECTION_TO_CELL_ID: Record<string, string> = {
+  inicio: 'cell-home',
+  'mas-alla-del-marketing': 'cell-7',
+  'tu-marca-en-360': 'cell-5',
+  'nuestro-proceso': 'cell-6',
+  testimonios: 'cell-4',
+  jugamos: 'cell-2',
+  footer: 'cell-1',
+}
+
+type ThrowStoneEventDetail = {
+  sectionId?: string
+  cellId?: string
+}
+
+/** Convierte coordenadas del viewBox a píxeles dentro del SVG renderizado */
+function viewBoxToPixels(
+  svgEl: SVGSVGElement,
+  x: number,
+  y: number
+): { px: number; py: number; scale: number; offsetX: number; offsetY: number } {
+  const svgRect = svgEl.getBoundingClientRect()
+  const scale = Math.min(svgRect.width / VIEWBOX_WIDTH, svgRect.height / VIEWBOX_HEIGHT)
+  const offsetX = (svgRect.width - VIEWBOX_WIDTH * scale) / 2
+  const offsetY = (svgRect.height - VIEWBOX_HEIGHT * scale) / 2
+  const px = offsetX + x * scale
+  const py = offsetY + y * scale
+  return { px, py, scale, offsetX, offsetY }
+}
+
+export function HopscotchMenu() {
+  const pathname = usePathname()
+  const [activeSection, setActiveSection] = useState<string>(CELLS[0].sectionId)
+  const [activeCellId, setActiveCellId] = useState<string>(CELLS[0].id)
+  const [pebbleStyle, setPebbleStyle] = useState({ x: 0, y: 0 })
+  const activeSectionRef = useRef<string>(CELLS[0].sectionId)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const pebbleRef = useRef<HTMLDivElement>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  const movePebbleToCell = useCallback((cellId: string) => {
+    const container = containerRef.current
+    const svgEl = svgRef.current
+    if (!container || !svgEl) return
+
+    const cell = CELLS.find((c) => c.id === cellId)
+    if (!cell) {
+      if (DEBUG_HIT_AREAS) console.warn('No encuentro hit area:', cellId)
+      return
+    }
+
+    const { px, py } = viewBoxToPixels(svgEl, cell.x, cell.y)
+    const containerRect = container.getBoundingClientRect()
+    const svgRect = svgEl.getBoundingClientRect()
+
+    const finalX = svgRect.left - containerRect.left + px - PEBBLE_HALF
+    const finalY = svgRect.top - containerRect.top + py - PEBBLE_HALF
+
+    if (DEBUG_HIT_AREAS) {
+      console.log(`Moviendo a ${cellId} (${cell.label}):`, {
+        viewBox: { x: cell.x, y: cell.y },
+        pixels: { px, py },
+        final: { finalX, finalY }
+      })
+    }
+
+    setPebbleStyle({ x: finalX, y: finalY })
+  }, [])
+
+  useEffect(() => {
+    movePebbleToCell(activeCellId)
+  }, [activeCellId, movePebbleToCell])
+
+  useEffect(() => {
+    const onResize = () => {
+      movePebbleToCell(activeCellId)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [activeCellId, movePebbleToCell])
+
+  useEffect(() => {
+    const t = setTimeout(() => movePebbleToCell(CELLS[0].id), 150)
+    return () => clearTimeout(t)
+  }, [movePebbleToCell])
+
+  useEffect(() => {
+    activeSectionRef.current = activeSection
+  }, [activeSection])
+
+  useEffect(() => {
+    const onThrowStone = (event: Event) => {
+      const customEvent = event as CustomEvent<ThrowStoneEventDetail>
+      const sectionId = customEvent.detail?.sectionId ?? 'mas-alla-del-marketing'
+      const cellId = customEvent.detail?.cellId ?? SECTION_TO_CELL_ID[sectionId] ?? 'cell-7'
+
+      setActiveSection(sectionId)
+      activeSectionRef.current = sectionId
+      setActiveCellId(cellId)
+    }
+
+    window.addEventListener('rayuela:throw-stone', onThrowStone as EventListener)
+    return () => window.removeEventListener('rayuela:throw-stone', onThrowStone as EventListener)
+  }, [])
+
+  useEffect(() => {
+    const uniqueSectionIds = Array.from(new Set(CELLS.map((c) => c.sectionId)))
+    const observers: IntersectionObserver[] = []
+    
+    uniqueSectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return
+            if (entry.intersectionRatio >= 0.5) {
+              if (activeSectionRef.current === id) return
+
+              setActiveSection(id)
+              activeSectionRef.current = id
+              setActiveCellId(SECTION_TO_CELL_ID[id] || CELLS[CELLS.length - 1].id)
+            }
+          })
+        },
+        { threshold: 0.5, rootMargin: '-10% 0px -10% 0px' }
+      )
+      observer.observe(el)
+      observers.push(observer)
+    })
+    return () => observers.forEach((o) => o.disconnect())
+  }, [])
+
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET
+    window.scrollTo({ top, behavior: 'smooth' })
+    setActiveSection(sectionId)
+    setActiveCellId(SECTION_TO_CELL_ID[sectionId] || CELLS[CELLS.length - 1].id)
+  }
+
+  const handleCellKeyDown = (e: React.KeyboardEvent, sectionId: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      scrollToSection(sectionId)
+    }
+  }
+
+  // Solo mostrar el menú rayuela en la página de inicio
+  if (pathname !== '/') return null
+
+  return (
+    <nav
+      ref={menuRef}
+      className="fixed right-4 top-1/2 -translate-y-1/2 z-50 w-[96px] lg:w-28 h-[680px] hidden lg:block"
+      aria-label="Navegación por secciones (rayuela)"
+    >
+      <div ref={containerRef} className="relative w-full h-full">
+        {/* Piedrita */}
+        <div
+          ref={pebbleRef}
+          className="absolute left-0 top-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#9966FF] to-[#8BC1A7] shadow-[0_0_12px_2px_rgba(153,102,255,0.5)] z-10 pointer-events-none transition-transform duration-700 ease-out"
+          style={{
+            transform: `translate(${pebbleStyle.x}px, ${pebbleStyle.y}px)`,
+          }}
+          aria-hidden
+        />
+
+        {/* SVG interactivo */}
+        <svg
+          ref={svgRef}
+          className="absolute inset-0 w-full h-full"
+          viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden
+        >
+          <image
+            href="/svgs/rayuelanueva.svg"
+            x="0"
+            y="0"
+            width={VIEWBOX_WIDTH}
+            height={VIEWBOX_HEIGHT}
+          />
+          
+          {/* Hit areas manuales */}
+          {CELLS.map((cell) => {
+            const isActive = activeSection === cell.sectionId
+            return (
+              <a
+                key={cell.id}
+                href={`#${cell.sectionId}`}
+                aria-label={`Ir a ${cell.label}`}
+                aria-current={isActive ? 'true' : undefined}
+                className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-[#9966FF] focus-visible:outline-offset-1"
+                style={{
+                  filter: isActive ? 'drop-shadow(0 0 8px rgba(153,102,255,0.5))' : undefined,
+                }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToSection(cell.sectionId)
+                  movePebbleToCell(cell.id)
+                }}
+                onKeyDown={(e) => handleCellKeyDown(e, cell.sectionId)}
+                tabIndex={0}
+              >
+                <circle
+                  id={cell.id}
+                  cx={cell.x}
+                  cy={cell.y}
+                  r={cell.r}
+                  fill={DEBUG_HIT_AREAS ? 'rgba(255,0,0,0.2)' : 'transparent'}
+                  stroke={DEBUG_HIT_AREAS ? 'rgba(255,0,0,0.8)' : 'transparent'}
+                  strokeWidth={DEBUG_HIT_AREAS ? 2 : 0}
+                  pointerEvents="all"
+                />
+              </a>
+            )
+          })}
+        </svg>
+      </div>
+    </nav>
+  )
+}

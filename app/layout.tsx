@@ -3,8 +3,13 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google' 
 import { NavBar } from '@/components/ui/nav-bar' 
 import { Footer } from '@/components/ui/footer'
+import { HopscotchMenu } from '@/components/ui/hopscotch-menu'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = { 
   title: 'Rayuela - Agencia de Marketing digital', 
@@ -12,14 +17,13 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) { 
-  const isMaintenanceMode = process.env.MAINTENANCE_MODE === 'true'
-  
   return ( 
     <html lang="es"> 
       <body className={inter.className}> 
-        {!isMaintenanceMode && <NavBar />}
+        <NavBar />
+        <HopscotchMenu />
         <main>{children}</main> 
-        {!isMaintenanceMode && <Footer />}
+        <Footer />
       </body> 
     </html> 
   ) 

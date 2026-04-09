@@ -1,50 +1,75 @@
-import { BarChart3, TrendingUp, Search, PieChart } from 'lucide-react'
+import Image from 'next/image'
+import { Search, FileText, Gauge, CalendarCheck, Briefcase } from 'lucide-react'
 import { ServicePageLayout } from '@/components/ui/service-page-layout'
+import { SERVICE_SVGS } from '@/lib/service-svgs'
 
 export default function ConsultoriaPage() {
   return (
     <ServicePageLayout
-      icon={<BarChart3 className="h-12 w-12 inline-block" />}
-      title="Consultoría y Análisis de Datos"
-      description="Transformamos datos en insights accionables para impulsar el crecimiento y la eficiencia de tu negocio."
+      icon={
+        <Image
+          src={SERVICE_SVGS.consultoria}
+          alt=""
+          width={900}
+          height={600}
+          priority
+          className="w-full h-auto object-contain drop-shadow-2xl"
+          unoptimized
+        />
+      }
+      title="Consultoría & Project Management"
+      description="Orquestamos el éxito. Los datos son oro y las buenas ideas necesitan ejecución. Vos ponés la visión, nosotros el orden y la estrategia."
       features={[
         {
-          title: "Análisis de Datos",
-          description: "Analizamos tus datos para descubrir patrones, tendencias y oportunidades que impulsen tu negocio.",
-          icon: <TrendingUp className="h-6 w-6 text-white" />,
-        },
-        {
-          title: "Auditoría Digital",
-          description: "Evaluamos tu presencia digital y estrategia de marketing para identificar áreas de mejora y oportunidades de crecimiento.",
+          title: "Auditoría 360°",
+          description: "Analizamos qué estás haciendo bien y dónde estás perdiendo plata o energía.",
           icon: <Search className="h-6 w-6 text-white" />,
         },
         {
-          title: "Informes Personalizados",
-          description: "Creamos dashboards e informes personalizados que te permiten visualizar y actuar sobre tus KPIs más importantes.",
-          icon: <PieChart className="h-6 w-6 text-white" />,
+          title: "Hoja de Ruta Rayuela",
+          description: "Un documento accionable paso a paso. No teoría, sino tareas concretas para que ejecutes desde el día 1.",
+          icon: <FileText className="h-6 w-6 text-white" />,
+        },
+        {
+          title: "Sistemas de Medición",
+          description: "Te enseñamos qué mirar para que dejes de adivinar y empieces a decidir.",
+          icon: <Gauge className="h-6 w-6 text-white" />,
+        },
+        {
+          title: "El Seguimiento",
+          description: "No te soltamos la mano. Incluye un Check-point mensual para ajustar la puntería, resolver dudas y asegurarnos de que la piedra caiga en el casillero correcto.",
+          icon: <CalendarCheck className="h-6 w-6 text-white" />,
         },
       ]}
     >
-      <div className="mt-16">
-        <h2 className="text-3xl font-bold text-[#9966FF] mb-4"> El poder de las decisiones informadas</h2>
-        <p className="text-lg text-white mb-6">
-          En el mundo digital actual, los datos son el nuevo oro. En Rayuela, creemos que el verdadero poder de los datos radica en la capacidad de transformarlos en insights accionables que impulsen el crecimiento y la eficiencia de tu negocio. Nuestra consultoría y análisis de datos va más allá de los números; se trata de contar la historia detrás de los datos y utilizarla para tomar decisiones estratégicas.
-        </p>
-        <p className="text-lg text-white mb-6">
-          Nuestro enfoque de consultoría y análisis de datos incluye:
-        </p>
-        <ul className="bg-transparent border-white list-disc list-inside text-lg text-white mb-6">
-          <li>Recopilación y limpieza de datos de múltiples fuentes</li>
-          <li>Análisis profundo utilizando técnicas avanzadas de estadística y machine learning</li>
-          <li>Visualización de datos clara y comprensible</li>
-          <li>Interpretación de resultados y desarrollo de recomendaciones accionables</li>
-          <li>Implementación y seguimiento de estrategias basadas en datos</li>
-        </ul>
-        <p className="text-lg text-white">
-          Ya sea que necesites optimizar tu embudo de ventas, entender mejor a tu audiencia, o desarrollar una estrategia de crecimiento basada en datos, nuestro equipo está aquí para ayudarte a desbloquear el potencial oculto en tus datos y llevar tu negocio al siguiente nivel.
-        </p>
+      <div className="space-y-10">
+        {/* Consultoría Estratégica */}
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Consultoría Estratégica: <span className="text-[#9966FF]">De la parálisis al plan de acción.</span>
+          </h2>
+          <p className="text-lg text-white/90 leading-relaxed mb-8">
+            ¿Sentís que hacés mucho pero no sabés qué funciona? ¿Tu marca está estancada en el mismo casillero? Nuestra asesoría no es una charla motivacional; es una intervención técnica en tu negocio.
+          </p>
+        </div>
+
+        {/* Project Management */}
+        <div className="p-8 rounded-2xl bg-gradient-to-r from-[#9966FF]/20 to-[#8BC1A7]/20 border border-white/10">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 p-3 rounded-xl bg-[#9966FF]/20">
+              <Briefcase className="h-8 w-8 text-[#9966FF]" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-3">
+                Project Management: Tu proyecto, bajo control.
+              </h3>
+              <p className="text-lg text-white/90 leading-relaxed">
+                ¿Tenés una idea pero no sabés cómo coordinar al diseñador, al programador y la imprenta? Nosotros tomamos las riendas. Gestionamos tiempos, proveedores y presupuestos para que tu única tarea sea aprobar el resultado final. Hacemos que las cosas pasen.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </ServicePageLayout>
   )
 }
-

@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Brush, Globe, Megaphone, Share2, BarChart3 } from 'lucide-react'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,35 +18,30 @@ const services = [
     title: "Branding & Diseño Omnicanal",
     subtitle: "Del píxel al papel",
     href: "/servicios/diseno-grafico",
-    icon: Brush,
     iconSrc: SERVICE_SVGS.branding,
   },
   {
     title: "Desarrollo Web",
     subtitle: "Tu casa matriz digital",
     href: "/servicios/desarrollo-web",
-    icon: Globe,
     iconSrc: SERVICE_SVGS.web,
   },
   {
     title: "Paid Media & Performance",
     subtitle: "Inversión, no gasto",
     href: "/servicios/publicidad-online",
-    icon: Megaphone,
     iconSrc: SERVICE_SVGS.paid,
   },
   {
     title: "Social Media & Creación de Contenido",
     subtitle: "La voz de tu juego",
     href: "/servicios/social-media",
-    icon: Share2,
     iconSrc: SERVICE_SVGS.contenido,
   },
   {
     title: "Consultoría & Project Management",
     subtitle: "Orquestamos el éxito",
     href: "/servicios/consultoria",
-    icon: BarChart3,
     iconSrc: SERVICE_SVGS.consultoria,
   }
 ]
@@ -112,24 +106,16 @@ export function NavBar() {
                             className="group flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-all duration-300"
                           >
                             <div
-                              className={
-                                "iconSrc" in service && service.iconSrc
-                                  ? "mt-1 flex-shrink-0 w-11 h-11 flex items-center justify-center"
-                                  : "mt-1 flex-shrink-0 p-2 rounded-lg bg-gradient-to-br from-[#9966FF]/20 to-[#8BC1A7]/20 group-hover:from-[#9966FF]/30 group-hover:to-[#8BC1A7]/30 transition-all duration-300 w-9 h-9 flex items-center justify-center"
-                              }
+                              className="mt-1 flex-shrink-0 w-11 h-11 flex items-center justify-center"
                             >
-                              {"iconSrc" in service && service.iconSrc ? (
-                                <Image
-                                  src={service.iconSrc}
-                                  alt=""
-                                  width={44}
-                                  height={44}
-                                  className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300"
-                                  unoptimized
-                                />
-                              ) : (
-                                <service.icon className="h-5 w-5 text-[#9966FF] group-hover:scale-110 transition-transform duration-300" />
-                              )}
+                              <Image
+                                src={service.iconSrc}
+                                alt=""
+                                width={44}
+                                height={44}
+                                className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300"
+                                unoptimized
+                              />
                             </div>
                             <div>
                               <div className="font-semibold text-white group-hover:text-[#9966FF] transition-colors">
@@ -197,18 +183,14 @@ export function NavBar() {
                     className="block text-white hover:text-[#9966FF] py-2"
                   >
                     <div className="flex items-center gap-2">
-                      {"iconSrc" in service && service.iconSrc ? (
-                        <Image
-                          src={service.iconSrc}
-                          alt=""
-                          width={36}
-                          height={36}
-                          className="h-9 w-9 flex-shrink-0 object-contain"
-                          unoptimized
-                        />
-                      ) : (
-                        <service.icon className="h-4 w-4 flex-shrink-0 text-[#9966FF]" />
-                      )}
+                      <Image
+                        src={service.iconSrc}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="h-9 w-9 flex-shrink-0 object-contain"
+                        unoptimized
+                      />
                       <span className="font-medium">{service.title}</span>
                     </div>
                     <div className="text-xs text-[#8BC1A7] mt-0.5">{service.subtitle}</div>

@@ -68,7 +68,7 @@ const testimonials = [
 ] as const
 
 const cardClassName = [
-  'h-full flex flex-col rounded-2xl p-6 sm:p-8 min-h-[280px] sm:min-h-[300px]',
+  'h-full flex flex-row md:flex-col rounded-2xl p-5 md:p-8 min-h-0 md:min-h-[300px] gap-4 md:gap-0',
   'bg-white/[0.05] backdrop-blur-sm border border-white/10',
   'transition-all duration-300 ease-out',
   'hover:-translate-y-1.5',
@@ -90,27 +90,29 @@ function TestimonialCard({
 }) {
   return (
     <article className={cardClassName}>
-      <Quote className="h-7 w-7 sm:h-8 sm:w-8 text-[#9966FF] mb-5 flex-shrink-0" aria-hidden />
-      <p className="text-white text-base sm:text-lg leading-relaxed mb-6 flex-grow">
-        &ldquo;{quote}&rdquo;
-      </p>
-      <footer className="mt-auto pt-2 border-t border-white/10 flex items-end justify-between gap-3">
-        <div>
-          <div className="font-semibold text-white">{author}</div>
-          {role ? <div className="text-sm text-[#8BC1A7]/90 mt-1">{role}</div> : null}
-        </div>
-        {instagram ? (
-          <a
-            href={instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Instagram de ${role ?? author}`}
-            className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-white/15 text-white/90 hover:text-white hover:border-[#9966FF]/60 hover:bg-[#9966FF]/10 transition-colors"
-          >
-            <Instagram className="h-4 w-4" />
-          </a>
-        ) : null}
-      </footer>
+      <Quote className="h-6 w-6 md:h-8 md:w-8 text-[#9966FF] md:mb-5 flex-shrink-0 mt-1 md:mt-0" aria-hidden />
+      <div className="flex flex-col flex-grow min-w-0">
+        <p className="text-white text-[15px] md:text-lg leading-snug md:leading-relaxed mb-4 md:mb-6 flex-grow">
+          &ldquo;{quote}&rdquo;
+        </p>
+        <footer className="mt-auto pt-3 md:pt-4 border-t border-white/10 flex items-end justify-between gap-3">
+          <div className="min-w-0">
+            <div className="font-semibold text-white truncate">{author}</div>
+            {role ? <div className="text-sm text-[#8BC1A7]/90 mt-0.5 truncate">{role}</div> : null}
+          </div>
+          {instagram ? (
+            <a
+              href={instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Instagram de ${role ?? author}`}
+              className="inline-flex items-center justify-center h-9 w-9 shrink-0 rounded-full border border-white/15 text-white/90 hover:text-white hover:border-[#9966FF]/60 hover:bg-[#9966FF]/10 transition-colors"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+          ) : null}
+        </footer>
+      </div>
     </article>
   )
 }
@@ -144,19 +146,19 @@ export function TestimonialsSection() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_minmax(0,1fr)] gap-x-6 md:gap-x-8 lg:gap-x-10 gap-y-10 lg:gap-y-12">
+        <div className="grid grid-cols-[42%_1fr] sm:grid-cols-[35%_1fr] md:grid-cols-[auto_minmax(0,1fr)] gap-x-3 sm:gap-x-6 md:gap-x-8 lg:gap-x-10 gap-y-8 lg:gap-y-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mx-auto w-full max-w-[min(100%,440px)] justify-self-center md:mx-0 md:w-auto md:justify-self-start md:max-w-[min(36vw,320px)] lg:max-w-[300px] md:row-span-2 md:self-center"
+            className="col-start-1 col-end-2 row-start-1 row-end-2 md:row-span-2 self-end md:self-center mx-auto w-full max-w-[180px] sm:max-w-[220px] md:max-w-[min(36vw,320px)] lg:max-w-[300px] justify-self-center md:justify-self-start"
           >
             <img
               src={encodeURI('/svgs/Tincho.svg')}
               alt=""
               role="presentation"
-              className="w-full h-auto max-h-[min(70vh,520px)] object-contain object-bottom md:object-left"
+              className="w-full h-auto max-h-[350px] md:max-h-[min(70vh,520px)] object-contain object-bottom md:object-left"
             />
           </motion.div>
 
@@ -165,18 +167,18 @@ export function TestimonialsSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="min-w-0 text-left md:col-start-2 md:self-end"
+            className="col-start-2 col-end-3 row-start-1 row-end-2 self-center md:self-end min-w-0 text-left"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Lo que dicen <span className="text-[#9966FF]">nuestros clientes</span>
+            <h2 className="text-[1.75rem] leading-[1.1] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4">
+              Lo que dicen <span className="text-[#9966FF] block sm:inline">nuestros clientes</span>
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300">
               Testimonios reales de empresas que confiaron en nosotros
             </p>
           </motion.div>
 
           <div
-            className="relative min-w-0 md:col-start-2 md:self-start"
+            className="col-span-full md:col-span-1 md:col-start-2 md:row-start-2 relative min-w-0 md:self-start mt-4 md:mt-0"
           onMouseEnter={() => {
             autoplayPaused.current = true
           }}

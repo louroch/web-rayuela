@@ -7,7 +7,6 @@ const VIEWBOX_WIDTH = 468.6
 const VIEWBOX_HEIGHT = 1215.3
 
 const HEADER_OFFSET = 80
-const PEBBLE_HALF = 8
 
 const DEBUG_HIT_AREAS = false // Activado para que puedas ver y ajustar los círculos
 
@@ -79,8 +78,8 @@ export function HopscotchMenu() {
     const containerRect = container.getBoundingClientRect()
     const svgRect = svgEl.getBoundingClientRect()
 
-    const finalX = svgRect.left - containerRect.left + px - PEBBLE_HALF
-    const finalY = svgRect.top - containerRect.top + py - PEBBLE_HALF
+    const finalX = svgRect.left - containerRect.left + px
+    const finalY = svgRect.top - containerRect.top + py
 
     if (DEBUG_HIT_AREAS) {
       console.log(`Moviendo a ${cellId} (${cell.label}):`, {
@@ -139,8 +138,7 @@ export function HopscotchMenu() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting) return
-            if (entry.intersectionRatio >= 0.5) {
+            if (entry.isIntersecting) {
               if (activeSectionRef.current === id) return
 
               setActiveSection(id)
@@ -149,7 +147,7 @@ export function HopscotchMenu() {
             }
           })
         },
-        { threshold: 0.5, rootMargin: '-10% 0px -10% 0px' }
+        { threshold: 0, rootMargin: '-40% 0px -40% 0px' }
       )
       observer.observe(el)
       observers.push(observer)
@@ -179,16 +177,16 @@ export function HopscotchMenu() {
   return (
     <nav
       ref={menuRef}
-      className="fixed right-4 top-1/2 -translate-y-1/2 z-50 w-[96px] lg:w-28 h-[680px] hidden lg:block"
+      className="fixed right-0 sm:right-2 lg:right-4 top-[60%] lg:top-1/2 -translate-y-1/2 z-40 w-[55px] sm:w-[75px] lg:w-28 h-[340px] sm:h-[500px] lg:h-[680px] block opacity-40 hover:opacity-100 lg:opacity-100 transition-opacity duration-300"
       aria-label="Navegación por secciones (rayuela)"
     >
       <div ref={containerRef} className="relative w-full h-full">
         {/* Piedrita */}
         <div
           ref={pebbleRef}
-          className="absolute left-0 top-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#9966FF] to-[#8BC1A7] shadow-[0_0_12px_2px_rgba(153,102,255,0.5)] z-10 pointer-events-none transition-transform duration-700 ease-out"
+          className="absolute left-0 top-0 w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 rounded-full bg-gradient-to-br from-[#9966FF] to-[#8BC1A7] shadow-[0_0_12px_2px_rgba(153,102,255,0.5)] z-10 pointer-events-none transition-transform duration-700 ease-out"
           style={{
-            transform: `translate(${pebbleStyle.x}px, ${pebbleStyle.y}px)`,
+            transform: `translate(${pebbleStyle.x}px, ${pebbleStyle.y}px) translate(-50%, -50%)`,
           }}
           aria-hidden
         />

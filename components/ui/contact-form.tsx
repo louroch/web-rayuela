@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { sendEmail } from '@/app/actions/send-email'
-import { MessageCircle, Mail } from 'lucide-react'
+import { Mail } from 'lucide-react'
+import { WhatsAppIcon } from '@/components/ui/whatsapp-icon'
 
 export function ContactForm() {
   const [sending, setSending] = useState(false)
@@ -80,7 +81,8 @@ export function ContactForm() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            {/* Desktop Buttons */}
+            <div className="hidden md:flex flex-row gap-4 mb-8">
               <Button
                 type="button"
                 onClick={() => setContactMethod('whatsapp')}
@@ -90,7 +92,7 @@ export function ContactForm() {
                     : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
                 }`}
               >
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon size={20} />
                 WhatsApp
               </Button>
               <Button
@@ -105,6 +107,40 @@ export function ContactForm() {
                 <Mail className="h-5 w-5" />
                 Email
               </Button>
+            </div>
+
+            {/* Mobile Icons */}
+            <div className="flex md:hidden justify-center items-center gap-8 mb-8">
+              <button
+                type="button"
+                onClick={() => {
+                  setContactMethod('whatsapp')
+                  document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }}
+                className={`p-4 rounded-full transition-all duration-300 ${
+                  contactMethod === 'whatsapp'
+                    ? 'bg-[#25D366] text-white scale-110 shadow-lg shadow-[#25D366]/20'
+                    : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
+                }`}
+                aria-label="Seleccionar WhatsApp"
+              >
+                <WhatsAppIcon size={32} />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setContactMethod('email')
+                  document.getElementById('contact-form-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }}
+                className={`p-4 rounded-full transition-all duration-300 ${
+                  contactMethod === 'email'
+                    ? 'bg-[#9966FF] text-white scale-110 shadow-lg shadow-[#9966FF]/20'
+                    : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
+                }`}
+                aria-label="Seleccionar Email"
+              >
+                <Mail className="h-8 w-8" />
+              </button>
             </div>
             <div className="space-y-4">
               <div className="flex items-center text-gray-300">
@@ -123,7 +159,7 @@ export function ContactForm() {
           </div>
 
           {/* Right Column - Form */}
-          <div className="bg-white p-8 md:p-12 flex flex-col justify-center">
+          <div id="contact-form-container" className="bg-white p-8 md:p-12 flex flex-col justify-center scroll-mt-24">
             <form 
               action={contactMethod === 'email' ? handleSubmit : undefined}
               onSubmit={contactMethod === 'whatsapp' ? handleWhatsAppSubmit : undefined}

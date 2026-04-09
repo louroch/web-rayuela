@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon"
 
 export function Footer() {
   return (
@@ -77,19 +78,19 @@ export function Footer() {
                 href="https://www.facebook.com/somosrayueladigital?mibextid=ZbWKwL" 
                 className="p-2 rounded-lg bg-white/5 hover:bg-[#9966FF] transition-all duration-300"
               >
-                <Image src="/assets/facebook.png" alt="Facebook" width={20} height={20} className="filter brightness-0 invert" />
+                <Image src="/assets/facebook.png" alt="Facebook" width={20} height={20} className="object-contain" />
               </Link>
               <Link 
                 href="https://www.instagram.com/somos.rayuela/" 
                 className="p-2 rounded-lg bg-white/5 hover:bg-[#9966FF] transition-all duration-300"
               >
-                <Image src="/assets/instagram.png" alt="Instagram" width={20} height={20} className="filter brightness-0 invert" />
+                <Image src="/assets/instagram.png" alt="Instagram" width={20} height={20} className="object-contain" />
               </Link>
               <Link 
                 href="https://wa.me/5493815712204" 
                 className="p-2 rounded-lg bg-white/5 hover:bg-[#9966FF] transition-all duration-300"
               >
-                <Image src="/assets/whatsapp.png" alt="WhatsApp" width={20} height={20} className="filter brightness-0 invert" />
+                <WhatsAppIcon size={20} alt="WhatsApp" />
               </Link>
             </div>
           </div>

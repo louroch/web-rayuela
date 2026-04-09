@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 
 const HEADER_OFFSET = 80;
 
@@ -44,7 +43,7 @@ export function HeroSection() {
       </div>
 
       {/* Ilustración Meli - Posicionada absolutamente a la izquierda */}
-      <div className="hidden lg:flex absolute left-0 bottom-0 w-[35%] xl:w-[32%] h-[85%] z-10 pointer-events-none items-end">
+      <div className="absolute left-0 bottom-0 w-[42%] sm:w-[35%] lg:w-[35%] xl:w-[32%] h-[45%] sm:h-[50%] lg:h-[85%] z-10 pointer-events-none flex items-end">
         <img
           src={encodeURI("/svgs/Meli compo.svg")}
           alt=""
@@ -53,14 +52,17 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-[80vh] flex items-center lg:justify-center">
-        <div className="w-full max-w-3xl flex flex-col justify-center text-center">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-24 min-h-[80vh] flex items-start lg:items-center lg:justify-center">
+        <div className="w-full max-w-3xl flex flex-col justify-start lg:justify-center text-left md:text-center pt-1 sm:pt-2 lg:pt-0">
+          
+          {/* Título: Ocupa todo el ancho arriba */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="w-full mb-4 sm:mb-5 lg:mb-6"
           >
-            <h1 className="text-5xl xl:text-6xl font-bold text-white mb-6 leading-[0.95] tracking-tight">
+            <h1 className="text-[2.5rem] sm:text-5xl md:text-5xl xl:text-6xl font-bold text-white leading-[1.05] md:leading-[0.95] tracking-tight">
               No vendemos paquetes.
               <br />
               Diseñamos tu{" "}
@@ -72,7 +74,25 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
+            className="md:hidden text-[15px] text-gray-300 mb-2 leading-relaxed font-light max-w-none"
+          >
+            Somos Rayuela. Una agencia creativa que entiende que para llegar a la cima, primero hay que saber pisar firme en la Tierra.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="md:hidden pl-[40%] sm:pl-[34%] text-[15px] text-gray-300 mb-5 leading-relaxed font-light"
+          >
+            Estrategia, diseño, gestión y experiencias reales para negocios que no encajan en moldes prefabricados.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="hidden md:block text-base md:text-lg text-gray-300 mb-8 md:mb-10 max-w-2xl md:mx-auto leading-relaxed font-light"
           >
             Somos Rayuela. Una agencia creativa que entiende que para llegar a la cima, primero hay que saber pisar firme en la Tierra. Estrategia, diseño, gestión y experiencias reales para negocios que no encajan en moldes prefabricados.
           </motion.p>
@@ -81,14 +101,14 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex justify-center"
+            className="pl-[40%] sm:pl-[34%] md:pl-0 flex justify-start md:justify-center w-full"
           >
             <Button
               onClick={handleThrowStone}
-              className="group px-8 py-6 text-lg font-medium bg-[#9966FF] hover:bg-[#8a5ce6] text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="mr-auto md:mx-auto inline-flex h-auto w-full max-w-[210px] sm:max-w-xs md:w-auto md:max-w-none items-center justify-center whitespace-normal md:whitespace-nowrap px-3 py-3 sm:px-5 sm:py-3 md:px-8 md:py-4 text-[11px] sm:text-xs md:text-lg font-medium bg-[#9966FF] hover:bg-[#8a5ce6] text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center leading-tight md:leading-none"
             >
-              Tirá la piedra: Conocé nuestra jugada
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <span className="md:hidden">Tira la piedra: conocenos</span>
+              <span className="hidden md:inline">Tirá la piedra: Conocé nuestra jugada</span>
             </Button>
           </motion.div>
         </div>

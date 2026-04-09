@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Input } from "@/components/ui/input"
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon"
 import { Button } from "@/components/ui/button"
 
 
@@ -52,7 +53,7 @@ export function Footer() {
                   <Image src="/assets/instagram.png" alt="Instagram" width={24} height={24} />
                 </Link>
                 <Link href="https://wa.me/5493815712204" className="text-gray-300 hover:text-white transition-colors">
-                  <Image src="/assets/whatsapp.png" alt="WhatsApp" width={24} height={24} />
+                  <WhatsAppIcon size={24} alt="WhatsApp" />
                 </Link>
               </div>
             </div>

@@ -31,13 +31,29 @@ export function ManifestoSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="mb-6"
+              className="mb-0 lg:mb-6"
             >
-              <h2 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.95] tracking-tight">
+              <div className="lg:hidden flex items-start justify-between gap-2 mb-0 mt-2">
+                <h2 className="w-[66%] text-[2.1rem] leading-[1.02] font-bold text-white tracking-tight">
+                  Más allá del Marketing.
+                </h2>
+                <div className="w-[31%] max-w-[132px] flex-shrink-0 mt-0">
+                  <img
+                    src={encodeURI('/svgs/Lou compo.svg')}
+                    alt=""
+                    role="presentation"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+              <h2 className="hidden lg:block text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[0.95] tracking-tight">
                 Más allá del Marketing.
                 <br />
                 <span className="text-[#9966FF]">Arquitectos del Juego.</span>
               </h2>
+              <h3 className="lg:hidden w-[66%] text-[2rem] leading-[1] mt-1 font-bold tracking-tight text-[#9966FF]">
+                Arquitectos del Juego.
+              </h3>
             </motion.div>
 
             <motion.div
@@ -45,7 +61,7 @@ export function ManifestoSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6 text-lg lg:text-xl text-gray-300 leading-relaxed max-w-3xl"
+              className="space-y-2 lg:space-y-6 text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-3xl"
             >
               <p>
                 En 2023 nacimos digitales, pero todo se transforma y nosotros también. Hoy entendemos que una marca no vive solo en una pantalla. Vive en un evento, se toca en una tarjeta de presentación, se impone en la vía pública y se gestiona con precisión de relojero.

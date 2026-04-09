@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { WhatsAppIcon } from '@/components/ui/whatsapp-icon'
 
 interface ServicePageLayoutProps {
   icon: React.ReactNode
@@ -88,9 +89,10 @@ export function ServicePageLayout({
               href="https://wa.me/5493815712204"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[#8BC1A7] hover:bg-[#128C7E] text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-[#8BC1A7] hover:bg-[#128C7E] text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
             >
-              Contáctanos por WhatsApp
+              <WhatsAppIcon size={22} alt="" />
+              <span>Contáctanos por WhatsApp</span>
             </Link>
           </div>
         </div>

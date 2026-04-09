@@ -1,7 +1,10 @@
 'use client'
 
+import { useCallback } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const services = [
   {
@@ -38,6 +41,80 @@ const services = [
   },
 ]
 
+type Service = (typeof services)[number]
+
+const navButtonClass =
+  'inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all hover:border-[#9966FF]/50 hover:bg-[#9966FF]/15 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9966FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#21211F]'
+
+function ServiceCard({ service }: { service: Service }) {
+  return (
+    <Link href={service.href} className="block h-full">
+      <div className="group flex h-full min-h-[420px] flex-col bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-[#9966FF]/30 transition-all duration-300 hover:-translate-y-2 sm:min-h-[440px]">
+        <div className="mb-6 flex h-32 flex-shrink-0 items-end group-hover:scale-110 transition-transform duration-300">
+          <img
+            src={encodeURI(service.imageSrc)}
+            alt={service.title}
+            className="max-h-full w-auto object-contain object-left"
+          />
+        </div>
+        <h3 className="mb-1 flex-shrink-0 text-2xl font-bold text-white transition-colors group-hover:text-[#9966FF]">
+          {service.title}
+        </h3>
+        <p className="mb-3 flex-shrink-0 text-sm text-[#8BC1A7]">{service.subtitle}</p>
+        <p className="flex-1 text-gray-400 leading-relaxed">{service.description}</p>
+      </div>
+    </Link>
+  )
+}
+
+function ServicesMobileCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    skipSnaps: false,
+    dragFree: false,
+  })
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
+
+  return (
+    <div className="md:hidden">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y [-webkit-tap-highlight-color:transparent] gap-6">
+          {services.map((service) => (
+            <div
+              key={service.title}
+              className="min-w-0 shrink-0 grow-0 basis-full"
+            >
+              <ServiceCard service={service} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={scrollPrev}
+          className={navButtonClass}
+          aria-label="Tarjeta anterior"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={scrollNext}
+          className={navButtonClass}
+          aria-label="Siguiente tarjeta"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export function ServicesSection() {
   return (
     <section id="tu-marca-en-360" className="py-16 md:py-20 bg-[#21211F] relative overflow-hidden">
@@ -63,7 +140,9 @@ export function ServicesSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <ServicesMobileCarousel />
+
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -71,25 +150,9 @@ export function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="h-full"
             >
-              <Link href={service.href}>
-                <div className="group h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-[#9966FF]/30 transition-all duration-300 hover:-translate-y-2">
-                  <div className="mb-6 h-32 flex items-end group-hover:scale-110 transition-transform duration-300">
-                    <img 
-                      src={encodeURI(service.imageSrc)} 
-                      alt={service.title}
-                      className="max-h-full w-auto object-contain object-left"
-                    />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-[#9966FF] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-[#8BC1A7] mb-3">{service.subtitle}</p>
-                  <p className="text-gray-400 leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-              </Link>
+              <ServiceCard service={service} />
             </motion.div>
           ))}
         </div>
@@ -97,4 +160,3 @@ export function ServicesSection() {
     </section>
   )
 }
-

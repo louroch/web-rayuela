@@ -14,6 +14,7 @@ import {
 import { sendEmail } from '@/app/actions/send-email'
 import Image from 'next/image'
 import Link from 'next/link'
+import { WhatsAppIcon } from '@/components/ui/whatsapp-icon'
 
 interface ContactModalProps {
   open: boolean
@@ -57,9 +58,11 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
 
         <div className="grid md:grid-cols-2 gap-8 mt-6">
           {/* Redes Sociales */}
-          <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-white mb-4">Nuestras redes</h3>
-            <div className="space-y-4">
+          <div className="space-y-6 order-2 md:order-1">
+            <h3 className="text-xl font-semibold text-white mb-4 hidden md:block">Nuestras redes</h3>
+            
+            {/* Versión Desktop: Tarjetas grandes */}
+            <div className="hidden md:flex flex-col space-y-4">
               <Link
                 href="https://wa.me/5493815712204"
                 target="_blank"
@@ -67,7 +70,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#9966FF]/30 transition-all duration-300 group"
               >
                 <div className="p-3 rounded-lg bg-gradient-to-br from-[#9966FF]/20 to-[#8BC1A7]/20 group-hover:from-[#9966FF]/30 group-hover:to-[#8BC1A7]/30 transition-all">
-                  <Image src="/assets/whatsapp.png" alt="WhatsApp" width={24} height={24} className="filter brightness-0 invert" />
+                  <WhatsAppIcon size={24} alt="WhatsApp" />
                 </div>
                 <div>
                   <div className="font-semibold text-white">WhatsApp</div>
@@ -82,7 +85,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#9966FF]/30 transition-all duration-300 group"
               >
                 <div className="p-3 rounded-lg bg-gradient-to-br from-[#9966FF]/20 to-[#8BC1A7]/20 group-hover:from-[#9966FF]/30 group-hover:to-[#8BC1A7]/30 transition-all">
-                  <Image src="/assets/instagram.png" alt="Instagram" width={24} height={24} className="filter brightness-0 invert" />
+                <Image src="/assets/instagram.png" alt="Instagram" width={24} height={24} className="object-contain" />
                 </div>
                 <div>
                   <div className="font-semibold text-white">Instagram</div>
@@ -97,7 +100,7 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#9966FF]/30 transition-all duration-300 group"
               >
                 <div className="p-3 rounded-lg bg-gradient-to-br from-[#9966FF]/20 to-[#8BC1A7]/20 group-hover:from-[#9966FF]/30 group-hover:to-[#8BC1A7]/30 transition-all">
-                  <Image src="/assets/facebook.png" alt="Facebook" width={24} height={24} className="filter brightness-0 invert" />
+                <Image src="/assets/facebook.png" alt="Facebook" width={24} height={24} className="object-contain" />
                 </div>
                 <div>
                   <div className="font-semibold text-white">Facebook</div>
@@ -122,10 +125,50 @@ export function ContactModal({ open, onOpenChange }: ContactModalProps) {
                 </div>
               </div>
             </div>
+
+            {/* Versión Mobile: Iconos en fila */}
+            <div className="md:hidden flex justify-center items-center gap-6 mt-4">
+              <Link
+                href="https://wa.me/5493815712204"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/20 transition-transform duration-300 hover:scale-110"
+                aria-label="WhatsApp"
+              >
+                <WhatsAppIcon size={24} alt="WhatsApp" />
+              </Link>
+              <Link
+                href="https://www.instagram.com/somos.rayuela/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-transform duration-300 hover:scale-110"
+                aria-label="Instagram"
+              >
+                <Image src="/assets/instagram.png" alt="Instagram" width={24} height={24} className="object-contain" />
+              </Link>
+              <Link
+                href="https://www.facebook.com/somosrayueladigital?mibextid=ZbWKwL"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-transform duration-300 hover:scale-110"
+                aria-label="Facebook"
+              >
+                <Image src="/assets/facebook.png" alt="Facebook" width={24} height={24} className="object-contain" />
+              </Link>
+              <Link
+                href="mailto:rayuelaagenciadigital@gmail.com"
+                className="p-4 rounded-full bg-[#9966FF] text-white shadow-lg shadow-[#9966FF]/20 transition-transform duration-300 hover:scale-110"
+                aria-label="Email"
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </Link>
+            </div>
           </div>
 
           {/* Formulario */}
-          <div>
+          <div className="order-1 md:order-2">
             <h3 className="text-xl font-semibold text-white mb-4">Envíanos un mensaje</h3>
             <form action={handleSubmit} className="space-y-4">
               <div>

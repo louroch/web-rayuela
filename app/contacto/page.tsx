@@ -2,13 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Facebook, Instagram, Mail, MessageCircle } from 'lucide-react'; // Eliminamos Phone
+import { Facebook, Instagram, Mail } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/whatsapp-icon';
 
 const socialMedia = [
-  { name: 'Facebook', icon: Facebook, link: 'https://www.facebook.com/somosrayueladigital?mibextid=ZbWKwL' },
-  { name: 'Instagram', icon: Instagram, link: 'https://www.instagram.com/somos.rayuela/' },
-  { name: 'WhatsApp', icon: MessageCircle, link: 'https://wa.me/5493815712204' },
-];
+  { name: 'Facebook' as const, icon: Facebook, link: 'https://www.facebook.com/somosrayueladigital?mibextid=ZbWKwL' },
+  { name: 'Instagram' as const, icon: Instagram, link: 'https://www.instagram.com/somos.rayuela/' },
+  { name: 'WhatsApp' as const, link: 'https://wa.me/5493815712204' },
+] as const
 
 
 
@@ -37,7 +38,13 @@ export default function ContactoPage() {
                     rel="noopener noreferrer"
                     className="text-[#9966FF] hover:text-[#7433FE] transition-colors duration-300"
                   >
-                    <social.icon size={24} className="transform transition-transform duration-300 hover:scale-110" />
+                    {social.name === 'WhatsApp' ? (
+                      <span className="inline-flex rounded-full bg-[#25D366] p-1.5 transform transition-transform duration-300 hover:scale-110">
+                        <WhatsAppIcon size={22} alt="" />
+                      </span>
+                    ) : (
+                      <social.icon size={24} className="transform transition-transform duration-300 hover:scale-110" />
+                    )}
                     <span className="sr-only">{social.name}</span>
                   </a>
                 ))}

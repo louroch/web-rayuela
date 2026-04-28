@@ -21,6 +21,14 @@ const webProjects: PortfolioProject[] = [
     kind: 'web',
     ctaLabel: 'Ver sitio',
   },
+  {
+    href: 'https://novagestiontuc.com/',
+    image: '/assets/preview-web/webnova.png',
+    title: 'Nova Gestión',
+    category: 'Web institucional',
+    kind: 'web',
+    ctaLabel: 'Ver sitio',
+  },
 ]
 
 export default function DesarrolloWebPage() {

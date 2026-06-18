@@ -1,9 +1,12 @@
 import './globals.css' 
 import type { Metadata } from 'next' 
 import { Inter } from 'next/font/google' 
+import Script from 'next/script'
 import { NavBar } from '@/components/ui/nav-bar' 
 import { Footer } from '@/components/ui/footer'
 import { HopscotchMenu } from '@/components/ui/hopscotch-menu'
+
+const GA_MEASUREMENT_ID = 'G-86XHB7TRHH'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -19,7 +22,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: { children: React.ReactNode }) { 
   return ( 
     <html lang="es"> 
-      <body className={inter.className}> 
+      <body className={inter.className}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <NavBar />
         <HopscotchMenu />
         <main>{children}</main> 
